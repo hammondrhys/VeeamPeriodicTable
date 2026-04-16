@@ -304,8 +304,7 @@
 
 		.periodic-grid {
 			display: grid;
-			grid-template-columns: repeat(8, minmax(0, 1fr));
-			grid-auto-rows: 116px;
+			grid-template-columns: repeat(10, minmax(0, 1fr));
 			gap: 15px;
 			overflow: visible;
 		}
@@ -318,7 +317,7 @@
 			gap: 8px;
 			padding: 12px;
 			box-sizing: border-box;
-			min-height: 116px;
+			aspect-ratio: 1 / 1;
 			border: 1px solid rgba(148, 163, 184, 0.15);
 			border-top: 6px solid var(--category-color, var(--accent));
 			border-radius: var(--radius-md);
@@ -339,6 +338,11 @@
 				background var(--transition);
 			animation: tile-enter 420ms cubic-bezier(0.18, 0.89, 0.32, 1.28) both;
 			animation-delay: var(--delay, 0ms);
+		}
+
+		.tile,
+		.tile * {
+			box-sizing: border-box;
 		}
 
 		.tile:hover,
@@ -362,8 +366,19 @@
 				var(--surface-strong);
 		}
 
-		.tile-top,
-		.tile-bottom {
+		.tile-foundation-anchor {
+			border: 2px solid #00B336;
+			background:
+				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+				rgba(0, 179, 54, 0.1);
+		}
+
+		.tile-foundation-anchor .tile-category {
+			background: rgba(0, 179, 54, 0.16);
+			color: #c9ffd8;
+		}
+
+		.tile-top {
 			display: flex;
 			align-items: flex-start;
 			justify-content: space-between;
@@ -384,13 +399,13 @@
 			align-items: center;
 			gap: 6px;
 			max-width: 100%;
-			padding: 4px 8px;
+			padding: 3px 7px;
 			border-radius: 999px;
 			background: rgba(148, 163, 184, 0.12);
 			color: var(--muted);
-			font-size: 0.62rem;
+			font-size: 8px;
 			font-weight: 800;
-			letter-spacing: 0.06em;
+			letter-spacing: 0.14em;
 			line-height: 1;
 			text-transform: uppercase;
 			white-space: nowrap;
@@ -412,38 +427,42 @@
 			flex: 1 1 auto;
 			flex-direction: column;
 			justify-content: center;
+			align-items: center;
+			gap: 4px;
+			text-align: center;
 			min-height: 0;
+			width: 100%;
 			overflow: hidden;
 		}
 
 		.tile-symbol {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+			min-height: 0;
+			flex: 1 1 auto;
 			font-family: "Space Grotesk", "Avenir Next", sans-serif;
-			font-size: 1.5rem;
+			font-size: clamp(1rem, 5vw, 1.8rem);
 			font-weight: 700;
 			letter-spacing: -0.04em;
 			line-height: 1;
+			text-align: center;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
 
-		.tile-full-name,
-		.tile-detail {
+		.tile-full-name {
 			color: var(--muted);
-			font-size: 0.7rem;
-			line-height: 1.2;
+			font-size: 0.65rem;
+			line-height: 1;
 			margin-top: 4px;
 		}
 
 		.tile-full-name {
-			max-width: 100%;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		.tile-detail {
-			color: var(--soft);
+			max-width: 90%;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -495,24 +514,16 @@
 		.info-kicker {
 			display: inline-flex;
 			align-items: center;
-			gap: 8px;
 			margin-bottom: 14px;
 			padding: 7px 11px;
 			border-radius: 999px;
-			background: rgba(148, 163, 184, 0.12);
-			color: var(--muted);
+			border: 1px solid color-mix(in srgb, var(--info-color) 78%, transparent);
+			background: color-mix(in srgb, var(--info-color) 18%, rgba(15, 23, 42, 0.92));
+			color: #f8fafc;
 			font-size: 0.72rem;
 			font-weight: 800;
 			letter-spacing: 0.08em;
 			text-transform: uppercase;
-		}
-
-		.info-kicker::before {
-			content: "";
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			background: var(--info-color, var(--accent));
 		}
 
 		.info-symbol {
@@ -543,6 +554,35 @@
 			color: var(--soft);
 			font-size: 0.88rem;
 			line-height: 1.6;
+		}
+
+		.info-list-block {
+			margin-top: 18px;
+			padding-top: 16px;
+			border-top: 1px solid rgba(148, 163, 184, 0.12);
+		}
+
+		.info-list-block.is-hidden {
+			display: none;
+		}
+
+		.info-list-title {
+			margin: 0 0 12px;
+			font-family: "Space Grotesk", "Avenir Next", sans-serif;
+			font-size: 0.95rem;
+			letter-spacing: -0.02em;
+		}
+
+		.info-list {
+			margin: 0;
+			padding-left: 18px;
+			color: var(--muted);
+			font-size: 0.9rem;
+			line-height: 1.65;
+		}
+
+		.info-list li + li {
+			margin-top: 6px;
 		}
 
 		.empty-state {
@@ -652,7 +692,7 @@
 				<div class="legend" id="legend" aria-label="Category legend"></div>
 
 				<div class="status-row">
-					<div class="status-copy" id="statusCopy">24 of 24 elements visible</div>
+					<div class="status-copy" id="statusCopy">32 of 32 elements visible</div>
 					<button id="resetButton" class="reset-button" type="button">Reset filters</button>
 				</div>
 			</aside>
@@ -677,7 +717,15 @@
 				<p class="info-description" id="infoDescription">
 					Core data protection for virtual, physical, cloud, and enterprise workloads. Hover or focus a tile to inspect the surrounding ecosystem.
 				</p>
-				<div class="info-meta" id="infoMeta">Use the category legend to dim non-matching tiles while keeping the table structure intact.</div>
+				<div class="info-meta" id="infoMeta">Use the category legend to filter the map and inspect how each service fits into the Veeam platform tiers.</div>
+				<section class="info-list-block" id="infoListBlock">
+					<h3 class="info-list-title" id="infoListTitle">Key Features</h3>
+					<ul class="info-list" id="infoList">
+						<li>Backup orchestration across hybrid environments</li>
+						<li>Recovery, replication, and workload mobility</li>
+						<li>Policy-driven protection for enterprise platforms</li>
+					</ul>
+				</section>
 			</aside>
 		</section>
 	</div>
@@ -689,11 +737,10 @@
 				"name": "Backup & Replication",
 				"category": "foundation",
 				"filterCategories": ["foundation", "advanced", "premium"],
+				"keyFeatures": ["Backup orchestration", "Recovery and replication", "Hybrid workload mobility"],
 				"description": "The primary Veeam data protection engine for backup, recovery, replication, and mobility across hybrid environments.",
 				"row": 1,
 				"col": 1,
-				"rowSpan": 2,
-				"colSpan": 2,
 				"featured": true
 			},
 			{
@@ -701,79 +748,98 @@
 				"name": "Veeam ONE",
 				"category": "advanced",
 				"filterCategories": ["advanced", "premium"],
+				"keyFeatures": ["Monitoring and alerting", "Capacity planning", "Performance analytics"],
 				"description": "Monitoring, analytics, capacity planning, and alerting for protected infrastructure and backup operations.",
 				"row": 1,
-				"col": 3
+				"col": 2
 			},
 			{
 				"symbol": "VRO",
 				"name": "Veeam Recovery Orchestrator",
 				"category": "premium",
 				"filterCategories": ["premium"],
+				"keyFeatures": ["DR orchestration", "Automated testing", "Compliance-ready documentation"],
 				"description": "Automates disaster recovery planning, testing, documentation, and orchestration for resilient recovery outcomes.",
-				"row": 1,
-				"col": 4
+				"row": 2,
+				"col": 2
 			},
 			{
 				"symbol": "M365",
 				"name": "Microsoft 365",
 				"category": "baas",
+				"supportedPlatforms": ["Exchange Online", "SharePoint Online", "Teams", "OneDrive"],
 				"description": "Backup as a Service coverage for Microsoft 365 workloads including Exchange, SharePoint, Teams, and OneDrive.",
 				"row": 1,
-				"col": 5
+				"col": 7
 			},
 			{
 				"symbol": "SF",
 				"name": "Salesforce",
 				"category": "baas",
+				"supportedPlatforms": ["Salesforce records", "Metadata", "Configuration data"],
 				"description": "Protects Salesforce records, metadata, and configurations with service-led backup and restore workflows.",
 				"row": 1,
-				"col": 6
+				"col": 8
 			},
 			{
 				"symbol": "AZ",
 				"name": "Azure",
 				"category": "baas",
+				"supportedPlatforms": ["Azure virtual machines", "Managed cloud services", "Policy-driven backup"],
 				"description": "Managed backup services for Azure workloads delivered through the Veeam Data Cloud model.",
 				"row": 1,
-				"col": 7
+				"col": 9
 			},
 			{
 				"symbol": "AWS",
 				"name": "AWS",
 				"category": "baas",
+				"supportedPlatforms": ["EC2", "RDS", "Cloud-native workloads"],
 				"description": "Managed backup services for AWS workloads with cloud-native operational simplicity and policy-driven protection.",
 				"row": 1,
+				"col": 10
+			},
+			{
+				"symbol": "ENTRA",
+				"name": "Entra ID",
+				"category": "baas",
+				"supportedPlatforms": ["Directory objects", "Identity configuration", "Tenant-level recovery"],
+				"description": "Backup as a Service protection for Entra ID identities, configuration, and directory objects.",
+				"row": 2,
+				"col": 7
+			},
+			{
+				"symbol": "VBAz",
+				"name": "for Azure",
+				"category": "cloud-native",
+				"supportedPlatforms": ["Azure VMs", "Snapshots", "Native recovery workflows"],
+				"description": "Self-managed cloud-native backup and recovery for Azure virtual machines and cloud services.",
+				"row": 2,
 				"col": 8
 			},
 			{
-				"symbol": "VBfAz",
-				"name": "for Azure",
-				"category": "cloud-native",
-				"description": "Self-managed cloud-native backup and recovery for Azure virtual machines and cloud services.",
-				"row": 2,
-				"col": 3
-			},
-			{
-				"symbol": "VBfAWS",
+				"symbol": "VBSf",
 				"name": "for AWS",
 				"category": "cloud-native",
+				"supportedPlatforms": ["EC2", "EBS snapshots", "RDS protection"],
 				"description": "Self-managed protection for EC2, RDS, and other AWS workloads with policy-driven automation.",
 				"row": 2,
-				"col": 4
+				"col": 9
 			},
 			{
-				"symbol": "VBfGCP",
+				"symbol": "VBGCP",
 				"name": "for Google Cloud",
 				"category": "cloud-native",
+				"supportedPlatforms": ["Compute Engine", "Persistent Disk", "Cloud-native recovery"],
 				"description": "Self-managed protection for Google Cloud workloads with native integration and recovery workflows.",
 				"row": 2,
-				"col": 5
+				"col": 10
 			},
 			{
 				"symbol": "WIN",
 				"name": "Windows",
 				"category": "workloads",
+				"supportedPlatforms": ["Physical servers", "Virtual machines", "Endpoints"],
 				"description": "Physical and virtual Windows server and endpoint workloads backed by Veeam policies and recovery options.",
 				"row": 3,
 				"col": 1
@@ -782,6 +848,7 @@
 				"symbol": "LIN",
 				"name": "Linux",
 				"category": "workloads",
+				"supportedPlatforms": ["Physical Linux servers", "Virtual Linux workloads", "Application-aware backups"],
 				"description": "Native protection for Linux servers and workloads with application-aware backup and restore options.",
 				"row": 3,
 				"col": 2
@@ -790,6 +857,7 @@
 				"symbol": "VMW",
 				"name": "VMware",
 				"category": "workloads",
+				"supportedPlatforms": ["vSphere", "vCenter estates", "Replica recovery"],
 				"description": "Deep backup and recovery support for VMware vSphere estates with fast restore and replication workflows.",
 				"row": 3,
 				"col": 3
@@ -798,6 +866,7 @@
 				"symbol": "HV",
 				"name": "Hyper-V",
 				"category": "workloads",
+				"supportedPlatforms": ["Hyper-V hosts", "Clustered VMs", "Microsoft virtualization"],
 				"description": "Purpose-built data protection for Microsoft Hyper-V virtualized environments.",
 				"row": 3,
 				"col": 4
@@ -806,6 +875,7 @@
 				"symbol": "NUT",
 				"name": "Nutanix",
 				"category": "workloads",
+				"supportedPlatforms": ["AHV", "Nutanix clusters", "Integrated recovery"],
 				"description": "Data protection and recovery coverage for Nutanix AHV and associated infrastructure.",
 				"row": 3,
 				"col": 5
@@ -814,6 +884,7 @@
 				"symbol": "PROX",
 				"name": "Proxmox",
 				"category": "workloads",
+				"supportedPlatforms": ["Proxmox VE", "Virtual environments", "Recovery workflows"],
 				"description": "Backup and recovery support for Proxmox VE environments as part of the expanding workload ecosystem.",
 				"row": 3,
 				"col": 6
@@ -822,14 +893,34 @@
 				"symbol": "K10",
 				"name": "Kasten",
 				"category": "workloads",
+				"supportedPlatforms": ["Kubernetes", "Cloud-native apps", "Application mobility"],
 				"description": "Kubernetes-native data protection, application mobility, and disaster recovery through Kasten by Veeam.",
 				"row": 3,
 				"col": 7
 			},
 			{
+				"symbol": "NAS",
+				"name": "File Shares",
+				"category": "workloads",
+				"supportedPlatforms": ["SMB shares", "NFS shares", "Unstructured data"],
+				"description": "Protection for NAS and file-share data across SMB and NFS repositories with fast restore workflows.",
+				"row": 3,
+				"col": 8
+			},
+			{
+				"symbol": "SAP",
+				"name": "SAP HANA",
+				"category": "workloads",
+				"supportedPlatforms": ["SAP HANA", "Enterprise databases", "Application-aware recovery"],
+				"description": "Application-aware protection and recovery for SAP HANA databases and supporting enterprise workloads.",
+				"row": 3,
+				"col": 9
+			},
+			{
 				"symbol": "IMM",
 				"name": "Immutability",
 				"category": "cyber",
+				"keyFeatures": ["Tamper-resistant backups", "Ransomware resilience", "Retention protection"],
 				"description": "Preserves backup copies against deletion or tampering to strengthen ransomware resilience.",
 				"row": 4,
 				"col": 2
@@ -838,6 +929,7 @@
 				"symbol": "MAL",
 				"name": "Malware Detection",
 				"category": "cyber",
+				"keyFeatures": ["Threat scanning", "Pre-recovery inspection", "Compromise awareness"],
 				"description": "Identifies potential malicious activity inside protected data before recovery actions are taken.",
 				"row": 4,
 				"col": 3
@@ -846,6 +938,7 @@
 				"symbol": "YARA",
 				"name": "YARA",
 				"category": "cyber",
+				"keyFeatures": ["Rule-based inspection", "Threat intelligence patterns", "Indicator-of-compromise scanning"],
 				"description": "Uses YARA rules and threat intelligence patterns to inspect backup content for indicators of compromise.",
 				"row": 4,
 				"col": 4
@@ -854,6 +947,7 @@
 				"symbol": "4EYE",
 				"name": "Four-Eyes Approval",
 				"category": "cyber",
+				"keyFeatures": ["Dual approval control", "Sensitive operation review", "Administrative safeguards"],
 				"description": "Applies approval controls to sensitive operations so critical actions require a second trusted reviewer.",
 				"row": 4,
 				"col": 5
@@ -862,6 +956,7 @@
 				"symbol": "HLR",
 				"name": "Hardened Linux Repo",
 				"category": "storage",
+				"keyFeatures": ["Hardened repository design", "Immutable retention", "Secure backup targets"],
 				"description": "Secure Linux-based repositories with hardened configuration and immutability support for backup targets.",
 				"row": 4,
 				"col": 6
@@ -870,6 +965,7 @@
 				"symbol": "OBJ",
 				"name": "Object Storage",
 				"category": "storage",
+				"keyFeatures": ["Capacity tiering", "Off-site retention", "Archive workflows"],
 				"description": "Scalable object-based storage targets for off-site retention, capacity tiering, and archive workflows.",
 				"row": 4,
 				"col": 7
@@ -878,9 +974,55 @@
 				"symbol": "VAULT",
 				"name": "Veeam Vault",
 				"category": "storage",
+				"keyFeatures": ["Managed cloud storage", "Off-site resilience", "Secure retention"],
 				"description": "Fully managed cloud storage designed for secure, resilient off-site backup retention.",
 				"row": 4,
 				"col": 8
+			},
+			{
+				"symbol": "SPL",
+				"name": "Veeam App for Splunk",
+				"category": "security-integrations",
+				"features": ["Health monitoring", "Security status", "Splunk integration"],
+				"description": "Security integration app for Splunk that surfaces Veeam health, security status, and operational signals.",
+				"row": 5,
+				"col": 1
+			},
+			{
+				"symbol": "XSO",
+				"name": "App for Palo Alto XSOAR",
+				"category": "security-integrations",
+				"features": ["Incident response", "XSOAR Playbooks", "Security activity monitoring"],
+				"description": "Integration app for Palo Alto XSOAR with Veeam-aware playbooks and incident response workflows.",
+				"row": 5,
+				"col": 2
+			},
+			{
+				"symbol": "XSI",
+				"name": "App for Palo Alto XSIAM",
+				"category": "security-integrations",
+				"features": ["AI-driven SecOps", "XSIAM content pack", "Threat hunting"],
+				"description": "Security integration app for Palo Alto XSIAM with content packs for AI-assisted operations and threat hunting.",
+				"row": 5,
+				"col": 3
+			},
+			{
+				"symbol": "CS",
+				"name": "App for CrowdStrike",
+				"category": "security-integrations",
+				"features": ["Falcon LogScale", "Log analysis", "Security activity"],
+				"description": "Security integration app for CrowdStrike that feeds Veeam telemetry into Falcon LogScale for analysis.",
+				"row": 5,
+				"col": 4
+			},
+			{
+				"symbol": "SEN",
+				"name": "App for Microsoft Sentinel",
+				"category": "security-integrations",
+				"features": ["Azure Sentinel", "Job monitoring", "Security logging"],
+				"description": "Security integration app for Microsoft Sentinel with monitoring, logging, and response-ready Veeam events.",
+				"row": 5,
+				"col": 5
 			}
 		]
 	</script>
@@ -889,34 +1031,47 @@
 		const categoryMeta = {
 			foundation: {
 				label: "VDP Foundation",
+				tag: "VDP FOUNDATION",
 				color: "#00B336"
 			},
 			advanced: {
 				label: "VDP Advanced",
+				tag: "VDP ADVANCED",
 				color: "#38BDF8"
 			},
 			premium: {
 				label: "VDP Premium",
+				tag: "VDP PREMIUM",
 				color: "#2563EB"
 			},
 			baas: {
 				label: "VDC (BaaS)",
+				tag: "VDC BAAS",
 				color: "#F59E0B"
 			},
 			"cloud-native": {
 				label: "Cloud Native (Self-Managed)",
+				tag: "CLOUD NATIVE",
 				color: "#06B6D4"
 			},
 			workloads: {
 				label: "Workloads",
+				tag: "WORKLOADS",
 				color: "#FB7185"
 			},
 			cyber: {
 				label: "Cyber Resilience",
+				tag: "CYBER",
 				color: "#F43F5E"
+			},
+			"security-integrations": {
+				label: "Security Integrations",
+				tag: "SECURITY APPS",
+				color: "#8B5CF6"
 			},
 			storage: {
 				label: "Storage Targets",
+				tag: "STORAGE",
 				color: "#10B981"
 			}
 		};
@@ -933,6 +1088,9 @@
 		const infoName = document.getElementById("infoName");
 		const infoDescription = document.getElementById("infoDescription");
 		const infoMeta = document.getElementById("infoMeta");
+		const infoListBlock = document.getElementById("infoListBlock");
+		const infoListTitle = document.getElementById("infoListTitle");
+		const infoList = document.getElementById("infoList");
 
 		let activeCategory = null;
 
@@ -940,15 +1098,50 @@
 			return element.filterCategories || [element.category];
 		}
 
+		function getInfoListData(element) {
+			if (Array.isArray(element.supportedPlatforms) && element.supportedPlatforms.length > 0) {
+				return {
+					title: "Supported Platforms",
+					items: element.supportedPlatforms
+				};
+			}
+
+			if (Array.isArray(element.features) && element.features.length > 0) {
+				return {
+					title: "Key Features",
+					items: element.features
+				};
+			}
+
+			if (Array.isArray(element.keyFeatures) && element.keyFeatures.length > 0) {
+				return {
+					title: "Key Features",
+					items: element.keyFeatures
+				};
+			}
+
+			return null;
+		}
+
 		function updateInfo(element) {
 			const meta = categoryMeta[element.category];
 			const filterLabels = getFilterCategories(element).map((category) => categoryMeta[category].label);
+			const infoListData = getInfoListData(element);
 			infoPanel.style.setProperty("--info-color", meta.color);
 			infoCategory.textContent = meta.label;
 			infoSymbol.textContent = element.symbol;
 			infoName.textContent = element.name;
 			infoDescription.textContent = element.description;
 			infoMeta.textContent = "Category: " + meta.label + " | Included in: " + filterLabels.join(", ") + " | Symbol: " + element.symbol;
+
+			if (infoListData) {
+				infoListTitle.textContent = infoListData.title;
+				infoList.innerHTML = infoListData.items.map((item) => "<li>" + item + "</li>").join("");
+				infoListBlock.classList.remove("is-hidden");
+			} else {
+				infoList.innerHTML = "";
+				infoListBlock.classList.add("is-hidden");
+			}
 		}
 
 		function createLegend() {
@@ -995,13 +1188,28 @@
 			const filterCategories = getFilterCategories(element);
 			const tile = document.createElement("article");
 
-			tile.className = "tile" + (element.featured ? " featured" : "");
+			const tileClasses = ["tile"];
+
+			if (element.featured) {
+				tileClasses.push("featured");
+			}
+
+			if (element.category === "foundation") {
+				tileClasses.push("tile-foundation-anchor");
+			}
+
+			tile.className = tileClasses.join(" ");
 			tile.tabIndex = 0;
 			tile.dataset.symbol = element.symbol;
 			tile.dataset.name = element.name;
 			tile.dataset.category = element.category;
 			tile.dataset.filterCategories = filterCategories.join(" ");
 			tile.dataset.description = element.description;
+			tile.dataset.searchExtras = [
+				...(element.supportedPlatforms || []),
+				...(element.features || []),
+				...(element.keyFeatures || [])
+			].join(" ");
 			tile.style.setProperty("--col", element.col);
 			tile.style.setProperty("--row", element.row);
 			tile.style.setProperty("--col-span", element.colSpan || 1);
@@ -1011,15 +1219,12 @@
 
 			tile.innerHTML = `
 				<div class="tile-top">
-					<span class="tile-category" title="${meta.label}">${meta.label}</span>
+					<span class="tile-category" title="${meta.label}">${meta.tag || meta.label}</span>
 					<span class="element-index">${String(index + 1).padStart(2, "0")}</span>
 				</div>
 				<div class="tile-main">
 					<strong class="tile-symbol">${element.symbol}</strong>
 					<span class="tile-full-name" title="${element.name}">${element.name}</span>
-				</div>
-				<div class="tile-bottom">
-					<span class="tile-detail">${element.featured ? "Primary platform" : "Hover for details"}</span>
 				</div>
 				<div class="tile-tooltip" role="tooltip">${element.description}</div>
 			`;
@@ -1046,7 +1251,8 @@
 					tile.dataset.symbol,
 					tile.dataset.name,
 					...filterCategories.map((category) => categoryMeta[category].label),
-					tile.dataset.description
+					tile.dataset.description,
+					tile.dataset.searchExtras
 				].join(" ").toLowerCase();
 
 				const matchesSearch = term === "" || haystack.includes(term);
