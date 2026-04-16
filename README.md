@@ -20,18 +20,25 @@ The Veeam Ecosystem Periodic Table is a single-page web application built with H
 
 Because the app is a static page, you can preview it by opening `index.html` directly in a browser.
 
-## Cloudflare Pages Deployment
+## Cloudflare Deployment
 
-This repository is ready for Cloudflare Pages as a static site.
+This repository is configured for Wrangler static asset deployment.
 
-Use these settings when creating the Pages project:
+The included `wrangler.toml` tells Cloudflare to deploy the repository root as a static site, so a build step is not required.
 
-- Framework preset: `None`
-- Build command: leave blank
-- Build output directory: `/`
-- Root directory: leave blank unless you later move the app into a subfolder
+If your Cloudflare project is currently running this deploy command, keep it as:
 
-Cloudflare Pages will serve `index.html` from the repository root.
+```bash
+npx wrangler deploy
+```
+
+If you deploy from the command line locally, run the same command from the repository root.
+
+Important notes:
+
+- `index.html` is served from the repository root.
+- Unknown routes fall back to `index.html`, which is useful for single-page app style routing.
+- Because the assets directory is set to `.`, any additional files you place in the repository root can also be published unless you move the site into a dedicated output folder later.
 
 ## Git Workflow
 
