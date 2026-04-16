@@ -418,6 +418,30 @@
 			gap: 8px;
 		}
 
+		.tile-top-meta {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 4px;
+			flex: 0 0 auto;
+		}
+
+		.tile-offering-tag {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 2px 6px;
+			border-radius: 999px;
+			background: rgba(245, 158, 11, 0.18);
+			border: 1px solid rgba(245, 158, 11, 0.32);
+			color: #fde7b0;
+			font-size: 0.52rem;
+			font-weight: 800;
+			letter-spacing: 0.12em;
+			line-height: 1;
+			text-transform: uppercase;
+		}
+
 		.element-index {
 			color: var(--soft);
 			font-size: 0.68rem;
@@ -713,7 +737,7 @@
 				<div class="legend" id="legend" aria-label="Category legend"></div>
 
 				<div class="status-row">
-					<div class="status-copy" id="statusCopy">23 of 23 elements visible</div>
+					<div class="status-copy" id="statusCopy">29 of 29 elements visible</div>
 					<button id="resetButton" class="reset-button" type="button">Reset filters</button>
 				</div>
 			</aside>
@@ -724,7 +748,7 @@
 				<div class="panel-heading">
 					<div>
 						<h2>Platform Map</h2>
-						<p>VBR anchors the product map, with agents, plugins, SaaS offerings, and security apps grouped by role.</p>
+						<p>VBR anchors the product map, with self-managed products, BaaS offerings, agents, plugins, and security apps grouped by role.</p>
 					</div>
 				</div>
 
@@ -736,15 +760,15 @@
 				<h2 class="info-symbol" id="infoSymbol">VBR</h2>
 				<p class="info-name" id="infoName">Backup &amp; Replication</p>
 				<p class="info-description" id="infoDescription">
-					Core data protection across the Veeam platform, its plugins, SaaS offerings, and security integrations. Hover or focus a tile to inspect its product profile.
+					Core data protection across the Veeam platform, self-managed products, BaaS services, and security integrations. Hover or focus a tile to inspect its product profile.
 				</p>
 				<div class="info-meta" id="infoMeta">Use the category legend to filter the map and inspect each product, plugin, or agent in the sidebar.</div>
 				<section class="info-list-block" id="infoListBlock">
 					<h3 class="info-list-title" id="infoListTitle">Key Features</h3>
 					<ul class="info-list" id="infoList">
-						<li>Platform services for backup, recovery, and orchestration</li>
-						<li>Agents for operating systems and plugins for application workloads</li>
-						<li>Security apps and SaaS integrations across the Veeam ecosystem</li>
+						<li>Platform services for backup, recovery, orchestration, and provider operations</li>
+						<li>Agents and plugins for operating systems, databases, and Microsoft 365</li>
+						<li>Self-managed and BaaS cloud offerings across the Veeam ecosystem</li>
 					</ul>
 				</section>
 			</aside>
@@ -785,6 +809,15 @@
 				"col": 4
 			},
 			{
+				"symbol": "VSPC",
+				"name": "Service Provider Console",
+				"category": "platform",
+				"features": ["Multi-tenant management", "Usage reporting", "Remote monitoring", "Provider operations"],
+				"description": "Centralized operations console for service providers managing tenants, usage, monitoring, and backup services at scale.",
+				"row": 1,
+				"col": 5
+			},
+			{
 				"symbol": "VBEM",
 				"name": "Backup Enterprise Manager",
 				"category": "platform",
@@ -803,11 +836,22 @@
 				"col": 4
 			},
 			{
-				"symbol": "VBM365",
-				"name": "VB for Microsoft 365",
+				"symbol": "KAST",
+				"name": "Kasten",
+				"category": "platform",
+				"keyFeatures": ["Kubernetes-native data protection", "Application mobility", "Cloud-native disaster recovery"],
+				"description": "The standalone Kasten product for Kubernetes backup, application mobility, and disaster recovery across cloud-native environments.",
+				"row": 2,
+				"col": 5
+			},
+			{
+				"symbol": "VDC365",
+				"name": "Veeam Data Cloud for 365",
 				"category": "cloud-saas",
+				"offeringModel": "BaaS",
+				"features": ["Full BaaS", "Microsoft-hosted storage", "Unlimited retention available"],
 				"supportedPlatforms": ["Exchange Online", "SharePoint Online", "Teams", "OneDrive"],
-				"description": "Backup as a Service coverage for Microsoft 365 workloads including Exchange, SharePoint, Teams, and OneDrive.",
+				"description": "A fully managed Microsoft 365 BaaS offering through Veeam Data Cloud with hosted storage and long-term retention options.",
 				"row": 1,
 				"col": 6
 			},
@@ -830,30 +874,43 @@
 				"col": 8
 			},
 			{
+				"symbol": "VDC-AZ",
+				"name": "Veeam Data Cloud for Azure",
+				"category": "cloud-saas",
+				"offeringModel": "BaaS",
+				"features": ["Azure BaaS", "Managed policy operations", "Cloud-hosted protection"],
+				"description": "A Veeam Data Cloud BaaS offering for Azure workloads with managed operations and hosted protection services.",
+				"row": 2,
+				"col": 6
+			},
+			{
 				"symbol": "VBAz",
 				"name": "VB for Azure",
 				"category": "cloud-saas",
+				"offeringModel": "Self-Managed",
 				"supportedPlatforms": ["Azure VMs", "Snapshots", "Native recovery workflows"],
 				"description": "Self-managed protection for Azure virtual machines and cloud services.",
 				"row": 2,
-				"col": 6
+				"col": 7
 			},
 			{
 				"symbol": "VBAWS",
 				"name": "VB for AWS",
 				"category": "cloud-saas",
+				"offeringModel": "Self-Managed",
 				"supportedPlatforms": ["EC2", "EBS snapshots", "RDS protection"],
 				"description": "Self-managed protection for AWS workloads with policy-driven automation.",
 				"row": 2,
-				"col": 7
+				"col": 8
 			},
 			{
 				"symbol": "VBGCP",
 				"name": "VB for Google Cloud",
 				"category": "cloud-saas",
+				"offeringModel": "Self-Managed",
 				"supportedPlatforms": ["Compute Engine", "Persistent Disk", "Cloud-native recovery"],
 				"description": "Self-managed protection for Google Cloud workloads with native integration and recovery workflows.",
-				"row": 2,
+				"row": 3,
 				"col": 8
 			},
 			{
@@ -912,12 +969,22 @@
 			},
 			{
 				"symbol": "K10",
-				"name": "Kasten",
+				"name": "K10 Plugin",
 				"category": "plugins",
-				"supportedPlatforms": ["Kubernetes", "OpenShift", "AKS / EKS / GKE", "Cloud-native applications"],
-				"description": "Kubernetes-native data protection, application mobility, and disaster recovery through Kasten by Veeam.",
+				"supportedPlatforms": ["VBR", "Kubernetes", "OpenShift", "AKS / EKS / GKE"],
+				"description": "The K10 plugin for VBR, extending Backup & Replication with Kasten capabilities for Kubernetes protection and recovery workflows.",
 				"row": 3,
 				"col": 7
+			},
+			{
+				"symbol": "VB365",
+				"name": "VB for Microsoft 365 (Self-Managed)",
+				"category": "plugins",
+				"offeringModel": "Self-Managed",
+				"supportedPlatforms": ["Exchange Online", "SharePoint Online", "Teams", "OneDrive"],
+				"description": "Self-managed Microsoft 365 protection with customer-controlled infrastructure, storage, and retention strategy.",
+				"row": 4,
+				"col": 1
 			},
 			{
 				"symbol": "SPL",
@@ -954,6 +1021,24 @@
 				"description": "Integration app for CrowdStrike that feeds Veeam telemetry into Falcon LogScale for analysis.",
 				"row": 4,
 				"col": 5
+			},
+			{
+				"symbol": "POST",
+				"name": "PostgreSQL Plugin",
+				"category": "plugins",
+				"supportedPlatforms": ["PostgreSQL", "Linux hosts", "Application-aware recovery"],
+				"description": "Plugin-based protection for PostgreSQL deployments with application-aware backup and restore workflows.",
+				"row": 4,
+				"col": 7
+			},
+			{
+				"symbol": "DB2",
+				"name": "IBM DB2 Plugin",
+				"category": "plugins",
+				"supportedPlatforms": ["IBM DB2", "Linux and UNIX hosts", "Database recovery"],
+				"description": "Plugin-based protection for IBM DB2 environments with database-aware backup and recovery workflows.",
+				"row": 4,
+				"col": 8
 			},
 			{
 				"symbol": "SEN",
@@ -1046,12 +1131,13 @@
 		function updateInfo(element) {
 			const meta = categoryMeta[element.category];
 			const infoListData = getInfoListData(element);
+			const offeringMeta = element.offeringModel ? " | Model: " + element.offeringModel : "";
 			infoPanel.style.setProperty("--info-color", meta.color);
 			infoCategory.textContent = meta.label;
 			infoSymbol.textContent = element.symbol;
 			infoName.textContent = element.name;
 			infoDescription.textContent = element.description;
-			infoMeta.textContent = "Group: " + meta.label + " | Symbol: " + element.symbol;
+			infoMeta.textContent = "Group: " + meta.label + offeringMeta + " | Symbol: " + element.symbol;
 
 			if (infoListData) {
 				infoListTitle.textContent = infoListData.title;
@@ -1064,18 +1150,25 @@
 		}
 
 		function createLegend() {
+			const categoryCounts = elements.reduce((counts, element) => {
+				getFilterCategories(element).forEach((category) => {
+					counts[category] = (counts[category] || 0) + 1;
+				});
+				return counts;
+			}, {});
+
 			const allButton = document.createElement("button");
 			allButton.type = "button";
 			allButton.className = "is-active";
 			allButton.dataset.category = "all";
-			allButton.innerHTML = '<span class="legend-swatch" style="background:#E2E8F0"></span>All Categories';
+			allButton.innerHTML = '<span class="legend-swatch" style="background:#E2E8F0"></span>All Categories (' + elements.length + ')';
 			legend.appendChild(allButton);
 
 			Object.entries(categoryMeta).forEach(([key, meta]) => {
 				const button = document.createElement("button");
 				button.type = "button";
 				button.dataset.category = key;
-				button.innerHTML = '<span class="legend-swatch" style="background:' + meta.color + '"></span>' + meta.label;
+				button.innerHTML = '<span class="legend-swatch" style="background:' + meta.color + '"></span>' + meta.label + ' (' + (categoryCounts[key] || 0) + ')';
 				legend.appendChild(button);
 			});
 
@@ -1106,6 +1199,7 @@
 			const meta = categoryMeta[element.category];
 			const filterCategories = getFilterCategories(element);
 			const tile = document.createElement("article");
+			const offeringTag = element.offeringModel === "BaaS" ? '<span class="tile-offering-tag">BaaS</span>' : "";
 
 			const tileClasses = ["tile"];
 			tileClasses.push("tile-" + element.category);
@@ -1140,7 +1234,10 @@
 			tile.innerHTML = `
 				<div class="tile-top">
 					<span class="tile-category" title="${meta.label}">${element.tag || meta.tag || meta.label}</span>
-					<span class="element-index">${String(index + 1).padStart(2, "0")}</span>
+					<div class="tile-top-meta">
+						${offeringTag}
+						<span class="element-index">${String(index + 1).padStart(2, "0")}</span>
+					</div>
 				</div>
 				<div class="tile-main">
 					<strong class="tile-symbol">${element.symbol}</strong>
