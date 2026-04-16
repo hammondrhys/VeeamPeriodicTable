@@ -305,7 +305,8 @@
 		.periodic-grid {
 			display: grid;
 			grid-template-columns: repeat(10, minmax(0, 1fr));
-			gap: 15px;
+			gap: 12px;
+			padding: 20px;
 			overflow: visible;
 		}
 
@@ -313,11 +314,12 @@
 			position: relative;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-between;
+			justify-content: start;
 			gap: 8px;
-			padding: 12px;
+			padding: 6px 4px;
 			box-sizing: border-box;
-			aspect-ratio: 1 / 1;
+			min-height: 100px;
+			height: auto;
 			border: 1px solid rgba(148, 163, 184, 0.15);
 			border-top: 6px solid var(--category-color, var(--accent));
 			border-radius: var(--radius-md);
@@ -325,7 +327,7 @@
 				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
 				var(--surface-strong);
 			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
-			overflow: hidden;
+			overflow: visible;
 			grid-column: var(--col) / span var(--col-span, 1);
 			grid-row: var(--row) / span var(--row-span, 1);
 			opacity: 1;
@@ -367,6 +369,7 @@
 		}
 
 		.tile-foundation-anchor {
+			z-index: 10;
 			border: 2px solid #00B336;
 			background:
 				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
@@ -380,6 +383,16 @@
 		.tile-foundation-anchor .tile-category {
 			background: rgba(0, 179, 54, 0.16);
 			color: #c9ffd8;
+		}
+
+		.tile-foundation-anchor:hover,
+		.tile-foundation-anchor:focus-visible {
+			z-index: 10;
+			border-color: #00B336;
+			box-shadow:
+				0 0 0 1px rgba(0, 179, 54, 0.28),
+				0 22px 48px rgba(0, 179, 54, 0.24),
+				inset 0 1px 0 rgba(255, 255, 255, 0.05);
 		}
 
 		.tile-top {
@@ -403,11 +416,12 @@
 			align-items: center;
 			gap: 6px;
 			max-width: 100%;
-			padding: 3px 7px;
+			padding: 1px 4px;
+			margin-bottom: 4px;
 			border-radius: 999px;
 			background: rgba(148, 163, 184, 0.12);
 			color: var(--muted);
-			font-size: 8px;
+			font-size: 0.55rem;
 			font-weight: 800;
 			letter-spacing: 0.14em;
 			line-height: 1;
@@ -430,13 +444,13 @@
 			display: flex;
 			flex: 1 1 auto;
 			flex-direction: column;
-			justify-content: center;
+			justify-content: start;
 			align-items: center;
 			gap: 4px;
 			text-align: center;
 			min-height: 0;
 			width: 100%;
-			overflow: hidden;
+			overflow: visible;
 		}
 
 		.tile-symbol {
@@ -445,80 +459,34 @@
 			justify-content: center;
 			gap: 0.02em;
 			width: 100%;
-			height: 100%;
+			height: auto;
 			min-height: 0;
-			flex: 1 1 auto;
+			flex: 0 0 auto;
 			font-family: "Space Grotesk", "Avenir Next", sans-serif;
-			font-size: clamp(1rem, 5vw, 1.8rem);
+			font-size: 1.2rem;
 			font-weight: 700;
-			letter-spacing: -0.04em;
+			letter-spacing: -0.02em;
 			line-height: 1;
+			margin: 4px 0 2px;
 			text-align: center;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
 
-		.tile-symbol-prefix {
-			font-size: 0.8em;
-			line-height: 1;
-			opacity: 0.92;
-			flex: 0 0 auto;
-		}
-
-		.tile-symbol-core {
-			line-height: 1;
-			flex: 0 1 auto;
-			min-width: 0;
-		}
-
 		.tile-full-name {
 			color: var(--muted);
-			font-size: 0.65rem;
-			line-height: 1;
-			margin-top: 4px;
+			font-size: 0.6rem;
+			line-height: 1.1;
+			margin-top: 2px;
 		}
 
 		.tile-full-name {
 			max-width: 90%;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		.tile-tooltip {
-			position: absolute;
-			left: 14px;
-			right: 14px;
-			bottom: calc(100% + 12px);
-			padding: 12px 14px;
-			border: 1px solid rgba(148, 163, 184, 0.2);
-			border-radius: 14px;
-			background: rgba(15, 23, 42, 0.96);
-			color: var(--text);
-			font-size: 0.82rem;
-			line-height: 1.5;
-			box-shadow: 0 18px 40px rgba(2, 6, 23, 0.44);
-			opacity: 0;
-			transform: translateY(6px);
-			pointer-events: none;
-			transition: opacity var(--transition), transform var(--transition);
-			z-index: 20;
-		}
-
-		.tile-tooltip::after {
-			content: "";
-			position: absolute;
-			top: 100%;
-			left: 18px;
-			border: 8px solid transparent;
-			border-top-color: rgba(15, 23, 42, 0.96);
-		}
-
-		.tile:hover .tile-tooltip,
-		.tile:focus-visible .tile-tooltip {
-			opacity: 1;
-			transform: translateY(0);
+			white-space: normal;
+			text-align: center;
+			display: block;
+			overflow: visible;
 		}
 
 		.info-panel {
@@ -595,7 +563,7 @@
 			margin: 0;
 			padding-left: 18px;
 			color: var(--muted);
-			font-size: 0.9rem;
+			font-size: 0.85rem;
 			line-height: 1.65;
 		}
 
@@ -710,7 +678,7 @@
 				<div class="legend" id="legend" aria-label="Category legend"></div>
 
 				<div class="status-row">
-					<div class="status-copy" id="statusCopy">32 of 32 elements visible</div>
+					<div class="status-copy" id="statusCopy">35 of 35 elements visible</div>
 					<button id="resetButton" class="reset-button" type="button">Reset filters</button>
 				</div>
 			</aside>
@@ -773,7 +741,7 @@
 			},
 			{
 				"symbol": "VRO",
-				"name": "Veeam Recovery Orchestrator",
+				"name": "Recovery Orchestrator",
 				"category": "premium",
 				"filterCategories": ["premium"],
 				"keyFeatures": ["DR orchestration", "Automated testing", "Compliance-ready documentation"],
@@ -782,8 +750,18 @@
 				"col": 2
 			},
 			{
-				"symbol": "M365",
-				"name": "Microsoft 365",
+				"symbol": "VBEM",
+				"name": "Backup Enterprise Manager",
+				"category": "advanced",
+				"filterCategories": ["advanced", "premium"],
+				"features": ["Federated management", "Self-service recovery", "Global file search", "Multi-server reporting"],
+				"description": "Centralized enterprise management for multiple Veeam backup servers with delegated recovery and global visibility.",
+				"row": 2,
+				"col": 3
+			},
+			{
+				"symbol": "VBM365",
+				"name": "VB for M365",
 				"category": "baas",
 				"supportedPlatforms": ["Exchange Online", "SharePoint Online", "Teams", "OneDrive"],
 				"description": "Backup as a Service coverage for Microsoft 365 workloads including Exchange, SharePoint, Teams, and OneDrive.",
@@ -801,7 +779,7 @@
 			},
 			{
 				"symbol": "AZ",
-				"name": "Azure",
+				"name": "VB for Azure",
 				"category": "baas",
 				"supportedPlatforms": ["Azure virtual machines", "Managed cloud services", "Policy-driven backup"],
 				"description": "Managed backup services for Azure workloads delivered through the Veeam Data Cloud model.",
@@ -810,7 +788,7 @@
 			},
 			{
 				"symbol": "AWS",
-				"name": "AWS",
+				"name": "VB for AWS",
 				"category": "baas",
 				"supportedPlatforms": ["EC2", "RDS", "Cloud-native workloads"],
 				"description": "Managed backup services for AWS workloads with cloud-native operational simplicity and policy-driven protection.",
@@ -926,13 +904,31 @@
 				"col": 8
 			},
 			{
+				"symbol": "MAC",
+				"name": "macOS Agent",
+				"category": "workloads",
+				"keyFeatures": ["Physical Mac support", "Apple Silicon ready", "Centralized management"],
+				"description": "Agent-based backup and recovery for macOS systems and user devices.",
+				"row": 3,
+				"col": 9
+			},
+			{
+				"symbol": "UNX",
+				"name": "Unix (AIX/Solaris)",
+				"category": "workloads",
+				"keyFeatures": ["AIX support", "Solaris support", "Kernel-level backup"],
+				"description": "Protection coverage for legacy UNIX workloads including AIX and Solaris environments.",
+				"row": 3,
+				"col": 10
+			},
+			{
 				"symbol": "SAP",
 				"name": "SAP HANA",
 				"category": "workloads",
 				"supportedPlatforms": ["SAP HANA", "Enterprise databases", "Application-aware recovery"],
 				"description": "Application-aware protection and recovery for SAP HANA databases and supporting enterprise workloads.",
-				"row": 3,
-				"col": 9
+				"row": 4,
+				"col": 1
 			},
 			{
 				"symbol": "IMM",
@@ -962,7 +958,7 @@
 				"col": 4
 			},
 			{
-				"symbol": "4EYE",
+				"symbol": "4I",
 				"name": "Four-Eyes Approval",
 				"category": "cyber",
 				"keyFeatures": ["Dual approval control", "Sensitive operation review", "Administrative safeguards"],
@@ -999,7 +995,7 @@
 			},
 			{
 				"symbol": "SPL",
-				"name": "Veeam App for Splunk",
+				"name": "Splunk App",
 				"category": "security-integrations",
 				"features": ["Health monitoring", "Security status", "Splunk integration"],
 				"description": "Security integration app for Splunk that surfaces Veeam health, security status, and operational signals.",
@@ -1008,7 +1004,7 @@
 			},
 			{
 				"symbol": "XSO",
-				"name": "App for Palo Alto XSOAR",
+				"name": "Palo Alto XSOAR",
 				"category": "security-integrations",
 				"features": ["Incident response", "XSOAR Playbooks", "Security activity monitoring"],
 				"description": "Integration app for Palo Alto XSOAR with Veeam-aware playbooks and incident response workflows.",
@@ -1017,7 +1013,7 @@
 			},
 			{
 				"symbol": "XSI",
-				"name": "App for Palo Alto XSIAM",
+				"name": "Palo Alto XSIAM",
 				"category": "security-integrations",
 				"features": ["AI-driven SecOps", "XSIAM content pack", "Threat hunting"],
 				"description": "Security integration app for Palo Alto XSIAM with content packs for AI-assisted operations and threat hunting.",
@@ -1026,7 +1022,7 @@
 			},
 			{
 				"symbol": "CS",
-				"name": "App for CrowdStrike",
+				"name": "CrowdStrike App",
 				"category": "security-integrations",
 				"features": ["Falcon LogScale", "Log analysis", "Security activity"],
 				"description": "Security integration app for CrowdStrike that feeds Veeam telemetry into Falcon LogScale for analysis.",
@@ -1035,7 +1031,7 @@
 			},
 			{
 				"symbol": "SEN",
-				"name": "App for Microsoft Sentinel",
+				"name": "Microsoft Sentinel",
 				"category": "security-integrations",
 				"features": ["Azure Sentinel", "Job monitoring", "Security logging"],
 				"description": "Security integration app for Microsoft Sentinel with monitoring, logging, and response-ready Veeam events.",
@@ -1235,20 +1231,15 @@
 			tile.style.setProperty("--category-color", meta.color);
 			tile.style.setProperty("--delay", index * 35 + "ms");
 
-			const symbolMarkup = element.symbol.startsWith("VB") && element.symbol.length >= 5
-				? '<span class="tile-symbol-prefix">VB</span><span class="tile-symbol-core">' + element.symbol.slice(2) + '</span>'
-				: element.symbol;
-
 			tile.innerHTML = `
 				<div class="tile-top">
 					<span class="tile-category" title="${meta.label}">${meta.tag || meta.label}</span>
 					<span class="element-index">${String(index + 1).padStart(2, "0")}</span>
 				</div>
 				<div class="tile-main">
-					<strong class="tile-symbol">${symbolMarkup}</strong>
+					<strong class="tile-symbol">${element.symbol}</strong>
 					<span class="tile-full-name" title="${element.name}">${element.name}</span>
 				</div>
-				<div class="tile-tooltip" role="tooltip">${element.description}</div>
 			`;
 
 			tile.addEventListener("mouseenter", () => updateInfo(element));
