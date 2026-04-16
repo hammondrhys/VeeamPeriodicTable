@@ -304,9 +304,10 @@
 
 		.periodic-grid {
 			display: grid;
-			grid-template-columns: repeat(10, minmax(0, 1fr));
-			gap: 12px;
-			padding: 20px;
+			grid-template-columns: repeat(8, minmax(0, 1fr));
+			grid-auto-rows: minmax(110px, auto);
+			gap: 10px;
+			padding: 12px;
 			overflow: visible;
 		}
 
@@ -350,9 +351,10 @@
 		.tile:hover,
 		.tile:focus-visible {
 			transform: translateY(-4px);
-			border-color: rgba(248, 250, 252, 0.28);
+			border-color: color-mix(in srgb, var(--category-color) 68%, rgba(248, 250, 252, 0.16));
 			box-shadow:
-				0 20px 40px rgba(2, 6, 23, 0.36),
+				0 14px 32px rgba(2, 6, 23, 0.28),
+				0 0 22px color-mix(in srgb, var(--category-color) 30%, transparent),
 				inset 0 1px 0 rgba(255, 255, 255, 0.05);
 			outline: none;
 		}
@@ -364,6 +366,20 @@
 		.tile.featured {
 			background:
 				radial-gradient(circle at top right, rgba(0, 179, 54, 0.18), transparent 45%),
+				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+				var(--surface-strong);
+		}
+
+		.tile-agents {
+			background:
+				radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 46%),
+				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+				var(--surface-strong);
+		}
+
+		.tile-plugins {
+			background:
+				radial-gradient(circle at top right, rgba(20, 184, 166, 0.18), transparent 46%),
 				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
 				var(--surface-strong);
 		}
@@ -429,6 +445,26 @@
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
+		}
+
+		.tile-agents .tile-category {
+			background: rgba(56, 189, 248, 0.16);
+			color: #d5f4ff;
+		}
+
+		.tile-agents .tile-category::before {
+			background: #38BDF8;
+			box-shadow: 0 0 10px rgba(56, 189, 248, 0.55);
+		}
+
+		.tile-plugins .tile-category {
+			background: rgba(20, 184, 166, 0.18);
+			color: #d6fff6;
+		}
+
+		.tile-plugins .tile-category::before {
+			background: #14B8A6;
+			box-shadow: 0 0 10px rgba(20, 184, 166, 0.55);
 		}
 
 		.tile-category::before {
@@ -656,11 +692,10 @@
 	<div class="shell">
 		<header class="hero">
 			<section class="hero-card hero-copy">
-				<p class="eyebrow">Cloudflare Pages Ready</p>
 				<h1>The Veeam Ecosystem Periodic Table</h1>
 				<p>
 					A single-page, periodic-table-inspired map of the Veeam platform. Search the ecosystem in real time,
-					spotlight a category from the legend, and hover over any tile for a quick product or capability summary.
+					spotlight a category from the legend, and hover over any tile to inspect its product profile in the sidebar.
 				</p>
 			</section>
 
@@ -678,7 +713,7 @@
 				<div class="legend" id="legend" aria-label="Category legend"></div>
 
 				<div class="status-row">
-					<div class="status-copy" id="statusCopy">35 of 35 elements visible</div>
+					<div class="status-copy" id="statusCopy">23 of 23 elements visible</div>
 					<button id="resetButton" class="reset-button" type="button">Reset filters</button>
 				</div>
 			</aside>
@@ -689,7 +724,7 @@
 				<div class="panel-heading">
 					<div>
 						<h2>Platform Map</h2>
-						<p>VBR anchors the grid as the primary starting point, with adjacent services and controls organized by function.</p>
+						<p>VBR anchors the product map, with agents, plugins, SaaS offerings, and security apps grouped by role.</p>
 					</div>
 				</div>
 
@@ -701,15 +736,15 @@
 				<h2 class="info-symbol" id="infoSymbol">VBR</h2>
 				<p class="info-name" id="infoName">Backup &amp; Replication</p>
 				<p class="info-description" id="infoDescription">
-					Core data protection for virtual, physical, cloud, and enterprise workloads. Hover or focus a tile to inspect the surrounding ecosystem.
+					Core data protection across the Veeam platform, its plugins, SaaS offerings, and security integrations. Hover or focus a tile to inspect its product profile.
 				</p>
-				<div class="info-meta" id="infoMeta">Use the category legend to filter the map and inspect how each service fits into the Veeam platform tiers.</div>
+				<div class="info-meta" id="infoMeta">Use the category legend to filter the map and inspect each product, plugin, or agent in the sidebar.</div>
 				<section class="info-list-block" id="infoListBlock">
 					<h3 class="info-list-title" id="infoListTitle">Key Features</h3>
 					<ul class="info-list" id="infoList">
-						<li>Backup orchestration across hybrid environments</li>
-						<li>Recovery, replication, and workload mobility</li>
-						<li>Policy-driven protection for enterprise platforms</li>
+						<li>Platform services for backup, recovery, and orchestration</li>
+						<li>Agents for operating systems and plugins for application workloads</li>
+						<li>Security apps and SaaS integrations across the Veeam ecosystem</li>
 					</ul>
 				</section>
 			</aside>
@@ -721,372 +756,243 @@
 			{
 				"symbol": "VBR",
 				"name": "Backup & Replication",
-				"category": "foundation",
-				"filterCategories": ["foundation", "advanced", "premium"],
+				"category": "platform",
+				"tag": "VDP FOUNDATION",
 				"keyFeatures": ["Backup orchestration", "Recovery and replication", "Hybrid workload mobility"],
 				"description": "The primary Veeam data protection engine for backup, recovery, replication, and mobility across hybrid environments.",
 				"row": 1,
 				"col": 1,
+				"rowSpan": 2,
+				"colSpan": 2,
 				"featured": true
 			},
 			{
 				"symbol": "VONE",
 				"name": "Veeam ONE",
-				"category": "advanced",
-				"filterCategories": ["advanced", "premium"],
+				"category": "platform",
 				"keyFeatures": ["Monitoring and alerting", "Capacity planning", "Performance analytics"],
 				"description": "Monitoring, analytics, capacity planning, and alerting for protected infrastructure and backup operations.",
 				"row": 1,
-				"col": 2
+				"col": 3
 			},
 			{
 				"symbol": "VRO",
 				"name": "Recovery Orchestrator",
-				"category": "premium",
-				"filterCategories": ["premium"],
+				"category": "platform",
 				"keyFeatures": ["DR orchestration", "Automated testing", "Compliance-ready documentation"],
 				"description": "Automates disaster recovery planning, testing, documentation, and orchestration for resilient recovery outcomes.",
-				"row": 2,
-				"col": 2
+				"row": 1,
+				"col": 4
 			},
 			{
 				"symbol": "VBEM",
 				"name": "Backup Enterprise Manager",
-				"category": "advanced",
-				"filterCategories": ["advanced", "premium"],
+				"category": "platform",
 				"features": ["Federated management", "Self-service recovery", "Global file search", "Multi-server reporting"],
 				"description": "Centralized enterprise management for multiple Veeam backup servers with delegated recovery and global visibility.",
 				"row": 2,
 				"col": 3
 			},
 			{
+				"symbol": "RCN",
+				"name": "ReconScanner",
+				"category": "platform",
+				"features": ["Dormant threat discovery", "IoC scanning", "Backup content analysis", "Pre-recovery validation"],
+				"description": "A standalone security product for pre-recovery scanning, dormant threat discovery, and backup content validation.",
+				"row": 2,
+				"col": 4
+			},
+			{
 				"symbol": "VBM365",
-				"name": "VB for M365",
-				"category": "baas",
+				"name": "VB for Microsoft 365",
+				"category": "cloud-saas",
 				"supportedPlatforms": ["Exchange Online", "SharePoint Online", "Teams", "OneDrive"],
 				"description": "Backup as a Service coverage for Microsoft 365 workloads including Exchange, SharePoint, Teams, and OneDrive.",
 				"row": 1,
-				"col": 7
+				"col": 6
 			},
 			{
 				"symbol": "VBSF",
 				"name": "VB for Salesforce",
-				"category": "baas",
+				"category": "cloud-saas",
 				"supportedPlatforms": ["Salesforce records", "Metadata", "Configuration data"],
 				"description": "Protects Salesforce records, metadata, and configurations with service-led backup and restore workflows.",
 				"row": 1,
-				"col": 8
-			},
-			{
-				"symbol": "AZ",
-				"name": "VB for Azure",
-				"category": "baas",
-				"supportedPlatforms": ["Azure virtual machines", "Managed cloud services", "Policy-driven backup"],
-				"description": "Managed backup services for Azure workloads delivered through the Veeam Data Cloud model.",
-				"row": 1,
-				"col": 9
-			},
-			{
-				"symbol": "AWS",
-				"name": "VB for AWS",
-				"category": "baas",
-				"supportedPlatforms": ["EC2", "RDS", "Cloud-native workloads"],
-				"description": "Managed backup services for AWS workloads with cloud-native operational simplicity and policy-driven protection.",
-				"row": 1,
-				"col": 10
+				"col": 7
 			},
 			{
 				"symbol": "ENTRA",
 				"name": "Entra ID",
-				"category": "baas",
+				"category": "cloud-saas",
 				"supportedPlatforms": ["Directory objects", "Identity configuration", "Tenant-level recovery"],
-				"description": "Backup as a Service protection for Entra ID identities, configuration, and directory objects.",
-				"row": 2,
-				"col": 7
+				"description": "Protection for Entra ID identities, configuration, and directory objects.",
+				"row": 1,
+				"col": 8
 			},
 			{
 				"symbol": "VBAz",
 				"name": "VB for Azure",
-				"category": "cloud-native",
+				"category": "cloud-saas",
 				"supportedPlatforms": ["Azure VMs", "Snapshots", "Native recovery workflows"],
-				"description": "Self-managed cloud-native backup and recovery for Azure virtual machines and cloud services.",
+				"description": "Self-managed protection for Azure virtual machines and cloud services.",
 				"row": 2,
-				"col": 8
+				"col": 6
 			},
 			{
 				"symbol": "VBAWS",
 				"name": "VB for AWS",
-				"category": "cloud-native",
+				"category": "cloud-saas",
 				"supportedPlatforms": ["EC2", "EBS snapshots", "RDS protection"],
-				"description": "Self-managed protection for EC2, RDS, and other AWS workloads with policy-driven automation.",
+				"description": "Self-managed protection for AWS workloads with policy-driven automation.",
 				"row": 2,
-				"col": 9
+				"col": 7
 			},
 			{
 				"symbol": "VBGCP",
 				"name": "VB for Google Cloud",
-				"category": "cloud-native",
+				"category": "cloud-saas",
 				"supportedPlatforms": ["Compute Engine", "Persistent Disk", "Cloud-native recovery"],
 				"description": "Self-managed protection for Google Cloud workloads with native integration and recovery workflows.",
 				"row": 2,
-				"col": 10
+				"col": 8
 			},
 			{
 				"symbol": "WIN",
-				"name": "Windows",
-				"category": "workloads",
-				"supportedPlatforms": ["Physical servers", "Virtual machines", "Endpoints"],
-				"description": "Physical and virtual Windows server and endpoint workloads backed by Veeam policies and recovery options.",
+				"name": "Windows Agent",
+				"category": "agents",
+				"supportedPlatforms": ["Windows Server", "Windows 11/10", "Active Directory", "Microsoft SQL Server (agent-based)"],
+				"description": "Agent-based protection for Windows servers, workstations, and application workloads.",
 				"row": 3,
 				"col": 1
 			},
 			{
 				"symbol": "LIN",
-				"name": "Linux",
-				"category": "workloads",
-				"supportedPlatforms": ["Physical Linux servers", "Virtual Linux workloads", "Application-aware backups"],
-				"description": "Native protection for Linux servers and workloads with application-aware backup and restore options.",
+				"name": "Linux Agent",
+				"category": "agents",
+				"supportedPlatforms": ["RHEL", "Ubuntu", "Debian", "Oracle Linux", "SAP HANA (Agent-based)"],
+				"description": "Agent-based protection for Linux systems with application-aware backup and restore options.",
 				"row": 3,
 				"col": 2
 			},
 			{
-				"symbol": "VMW",
-				"name": "VMware",
-				"category": "workloads",
-				"supportedPlatforms": ["vSphere", "vCenter estates", "Replica recovery"],
-				"description": "Deep backup and recovery support for VMware vSphere estates with fast restore and replication workflows.",
+				"symbol": "MAC",
+				"name": "Mac Agent",
+				"category": "agents",
+				"supportedPlatforms": ["macOS endpoints", "Apple Silicon", "Intel Macs"],
+				"description": "Agent-based backup and recovery for macOS endpoints and user devices.",
 				"row": 3,
 				"col": 3
 			},
 			{
-				"symbol": "HV",
-				"name": "Hyper-V",
-				"category": "workloads",
-				"supportedPlatforms": ["Hyper-V hosts", "Clustered VMs", "Microsoft virtualization"],
-				"description": "Purpose-built data protection for Microsoft Hyper-V virtualized environments.",
+				"symbol": "UNX",
+				"name": "Unix Agent",
+				"category": "agents",
+				"supportedPlatforms": ["AIX", "Solaris", "Power systems", "SPARC estates"],
+				"description": "Agent-based protection for UNIX workloads including AIX and Solaris environments.",
 				"row": 3,
 				"col": 4
 			},
 			{
-				"symbol": "NUT",
-				"name": "Nutanix",
-				"category": "workloads",
-				"supportedPlatforms": ["AHV", "Nutanix clusters", "Integrated recovery"],
-				"description": "Data protection and recovery coverage for Nutanix AHV and associated infrastructure.",
+				"symbol": "SAP",
+				"name": "SAP HANA Plugin",
+				"category": "plugins",
+				"supportedPlatforms": ["SAP HANA", "HANA scale-up nodes", "Linux agent deployments"],
+				"description": "Plugin-based protection for SAP HANA workloads with application-aware backup orchestration.",
 				"row": 3,
 				"col": 5
 			},
 			{
-				"symbol": "PROX",
-				"name": "Proxmox",
-				"category": "workloads",
-				"supportedPlatforms": ["Proxmox VE", "Virtual environments", "Recovery workflows"],
-				"description": "Backup and recovery support for Proxmox VE environments as part of the expanding workload ecosystem.",
+				"symbol": "ORA",
+				"name": "Oracle Plugin",
+				"category": "plugins",
+				"supportedPlatforms": ["Oracle Database", "RAC", "ASM", "Linux and UNIX hosts"],
+				"description": "Plugin-based protection for Oracle databases with recovery workflows across clustered deployments.",
 				"row": 3,
 				"col": 6
 			},
 			{
 				"symbol": "K10",
 				"name": "Kasten",
-				"category": "workloads",
-				"supportedPlatforms": ["Kubernetes", "Cloud-native apps", "Application mobility"],
+				"category": "plugins",
+				"supportedPlatforms": ["Kubernetes", "OpenShift", "AKS / EKS / GKE", "Cloud-native applications"],
 				"description": "Kubernetes-native data protection, application mobility, and disaster recovery through Kasten by Veeam.",
 				"row": 3,
 				"col": 7
 			},
 			{
-				"symbol": "NAS",
-				"name": "File Shares",
-				"category": "workloads",
-				"supportedPlatforms": ["SMB shares", "NFS shares", "Unstructured data"],
-				"description": "Protection for NAS and file-share data across SMB and NFS repositories with fast restore workflows.",
-				"row": 3,
-				"col": 8
-			},
-			{
-				"symbol": "MAC",
-				"name": "macOS Agent",
-				"category": "workloads",
-				"keyFeatures": ["Physical Mac support", "Apple Silicon ready", "Centralized management"],
-				"description": "Agent-based backup and recovery for macOS systems and user devices.",
-				"row": 3,
-				"col": 9
-			},
-			{
-				"symbol": "UNX",
-				"name": "Unix (AIX/Solaris)",
-				"category": "workloads",
-				"keyFeatures": ["AIX support", "Solaris support", "Kernel-level backup"],
-				"description": "Protection coverage for legacy UNIX workloads including AIX and Solaris environments.",
-				"row": 3,
-				"col": 10
-			},
-			{
-				"symbol": "SAP",
-				"name": "SAP HANA",
-				"category": "workloads",
-				"supportedPlatforms": ["SAP HANA", "Enterprise databases", "Application-aware recovery"],
-				"description": "Application-aware protection and recovery for SAP HANA databases and supporting enterprise workloads.",
-				"row": 4,
-				"col": 1
-			},
-			{
-				"symbol": "IMM",
-				"name": "Immutability",
-				"category": "cyber",
-				"keyFeatures": ["Tamper-resistant backups", "Ransomware resilience", "Retention protection"],
-				"description": "Preserves backup copies against deletion or tampering to strengthen ransomware resilience.",
+				"symbol": "SPL",
+				"name": "Splunk",
+				"category": "security-apps",
+				"features": ["Health monitoring", "Security status", "Splunk integration"],
+				"description": "Security app for Splunk that surfaces Veeam health, security status, and operational signals.",
 				"row": 4,
 				"col": 2
 			},
 			{
-				"symbol": "MAL",
-				"name": "Malware Detection",
-				"category": "cyber",
-				"keyFeatures": ["Threat scanning", "Pre-recovery inspection", "Compromise awareness"],
-				"description": "Identifies potential malicious activity inside protected data before recovery actions are taken.",
-				"row": 4,
-				"col": 3
-			},
-			{
-				"symbol": "YARA",
-				"name": "YARA",
-				"category": "cyber",
-				"keyFeatures": ["Rule-based inspection", "Threat intelligence patterns", "Indicator-of-compromise scanning"],
-				"description": "Uses YARA rules and threat intelligence patterns to inspect backup content for indicators of compromise.",
-				"row": 4,
-				"col": 4
-			},
-			{
-				"symbol": "4I",
-				"name": "Four-Eyes Approval",
-				"category": "cyber",
-				"keyFeatures": ["Dual approval control", "Sensitive operation review", "Administrative safeguards"],
-				"description": "Applies approval controls to sensitive operations so critical actions require a second trusted reviewer.",
-				"row": 4,
-				"col": 5
-			},
-			{
-				"symbol": "VHR",
-				"name": "Hardened Linux Repo",
-				"category": "storage",
-				"keyFeatures": ["Hardened repository design", "Immutable retention", "Secure backup targets"],
-				"description": "Secure Linux-based repositories with hardened configuration and immutability support for backup targets.",
-				"row": 4,
-				"col": 6
-			},
-			{
-				"symbol": "OBJ",
-				"name": "Object Storage",
-				"category": "storage",
-				"keyFeatures": ["Capacity tiering", "Off-site retention", "Archive workflows"],
-				"description": "Scalable object-based storage targets for off-site retention, capacity tiering, and archive workflows.",
-				"row": 4,
-				"col": 7
-			},
-			{
-				"symbol": "VAULT",
-				"name": "Veeam Vault",
-				"category": "storage",
-				"keyFeatures": ["Managed cloud storage", "Off-site resilience", "Secure retention"],
-				"description": "Fully managed cloud storage designed for secure, resilient off-site backup retention.",
-				"row": 4,
-				"col": 8
-			},
-			{
-				"symbol": "SPL",
-				"name": "Splunk App",
-				"category": "security-integrations",
-				"features": ["Health monitoring", "Security status", "Splunk integration"],
-				"description": "Security integration app for Splunk that surfaces Veeam health, security status, and operational signals.",
-				"row": 5,
-				"col": 3
-			},
-			{
 				"symbol": "XSO",
 				"name": "Palo Alto XSOAR",
-				"category": "security-integrations",
-				"features": ["Incident response", "XSOAR Playbooks", "Security activity monitoring"],
+				"category": "security-apps",
+				"features": ["Incident response", "XSOAR playbooks", "Security activity monitoring"],
 				"description": "Integration app for Palo Alto XSOAR with Veeam-aware playbooks and incident response workflows.",
-				"row": 5,
-				"col": 4
+				"row": 4,
+				"col": 3
 			},
 			{
 				"symbol": "XSI",
-				"name": "Palo Alto XSIAM",
-				"category": "security-integrations",
+				"name": "XSIAM",
+				"category": "security-apps",
 				"features": ["AI-driven SecOps", "XSIAM content pack", "Threat hunting"],
-				"description": "Security integration app for Palo Alto XSIAM with content packs for AI-assisted operations and threat hunting.",
-				"row": 5,
-				"col": 5
+				"description": "Integration app for Palo Alto XSIAM with content packs for AI-assisted operations and threat hunting.",
+				"row": 4,
+				"col": 4
 			},
 			{
 				"symbol": "CS",
-				"name": "CrowdStrike App",
-				"category": "security-integrations",
+				"name": "CrowdStrike",
+				"category": "security-apps",
 				"features": ["Falcon LogScale", "Log analysis", "Security activity"],
-				"description": "Security integration app for CrowdStrike that feeds Veeam telemetry into Falcon LogScale for analysis.",
-				"row": 5,
-				"col": 6
+				"description": "Integration app for CrowdStrike that feeds Veeam telemetry into Falcon LogScale for analysis.",
+				"row": 4,
+				"col": 5
 			},
 			{
 				"symbol": "SEN",
-				"name": "Microsoft Sentinel",
-				"category": "security-integrations",
+				"name": "Sentinel",
+				"category": "security-apps",
 				"features": ["Azure Sentinel", "Job monitoring", "Security logging"],
-				"description": "Security integration app for Microsoft Sentinel with monitoring, logging, and response-ready Veeam events.",
-				"row": 5,
-				"col": 7
+				"description": "Integration app for Microsoft Sentinel with monitoring, logging, and response-ready Veeam events.",
+				"row": 4,
+				"col": 6
 			}
 		]
 	</script>
 
 	<script>
 		const categoryMeta = {
-			foundation: {
-				label: "VDP Foundation",
-				tag: "VDP FOUNDATION",
+			platform: {
+				label: "Platform",
+				tag: "PLATFORM",
 				color: "#00B336"
 			},
-			advanced: {
-				label: "VDP Advanced",
-				tag: "VDP ADVANCED",
+			agents: {
+				label: "Agents",
+				tag: "AGENTS",
 				color: "#38BDF8"
 			},
-			premium: {
-				label: "VDP Premium",
-				tag: "VDP PREMIUM",
-				color: "#2563EB"
-			},
-			baas: {
-				label: "VDC (BaaS)",
-				tag: "VDC BAAS",
-				color: "#F59E0B"
-			},
-			"cloud-native": {
-				label: "Cloud Native (Self-Managed)",
-				tag: "CLOUD NATIVE",
+			plugins: {
+				label: "Plugins",
+				tag: "PLUGINS",
 				color: "#06B6D4"
 			},
-			workloads: {
-				label: "Workloads",
-				tag: "WORKLOADS",
-				color: "#FB7185"
+			"cloud-saas": {
+				label: "Cloud & SaaS",
+				tag: "CLOUD & SAAS",
+				color: "#F59E0B"
 			},
-			cyber: {
-				label: "Cyber Resilience",
-				tag: "CYBER",
-				color: "#F43F5E"
-			},
-			"security-integrations": {
-				label: "Security Integrations",
+			"security-apps": {
+				label: "Security Apps",
 				tag: "SECURITY APPS",
 				color: "#8B5CF6"
-			},
-			storage: {
-				label: "Storage Targets",
-				tag: "STORAGE",
-				color: "#10B981"
 			}
 		};
 
@@ -1139,14 +1045,13 @@
 
 		function updateInfo(element) {
 			const meta = categoryMeta[element.category];
-			const filterLabels = getFilterCategories(element).map((category) => categoryMeta[category].label);
 			const infoListData = getInfoListData(element);
 			infoPanel.style.setProperty("--info-color", meta.color);
 			infoCategory.textContent = meta.label;
 			infoSymbol.textContent = element.symbol;
 			infoName.textContent = element.name;
 			infoDescription.textContent = element.description;
-			infoMeta.textContent = "Category: " + meta.label + " | Included in: " + filterLabels.join(", ") + " | Symbol: " + element.symbol;
+			infoMeta.textContent = "Group: " + meta.label + " | Symbol: " + element.symbol;
 
 			if (infoListData) {
 				infoListTitle.textContent = infoListData.title;
@@ -1203,12 +1108,13 @@
 			const tile = document.createElement("article");
 
 			const tileClasses = ["tile"];
+			tileClasses.push("tile-" + element.category);
 
 			if (element.featured) {
 				tileClasses.push("featured");
 			}
 
-			if (element.category === "foundation") {
+			if (element.symbol === "VBR") {
 				tileClasses.push("tile-foundation-anchor");
 			}
 
@@ -1233,7 +1139,7 @@
 
 			tile.innerHTML = `
 				<div class="tile-top">
-					<span class="tile-category" title="${meta.label}">${meta.tag || meta.label}</span>
+					<span class="tile-category" title="${meta.label}">${element.tag || meta.tag || meta.label}</span>
 					<span class="element-index">${String(index + 1).padStart(2, "0")}</span>
 				</div>
 				<div class="tile-main">
