@@ -306,7 +306,7 @@
 			display: grid;
 			grid-template-columns: repeat(8, minmax(0, 1fr));
 			grid-auto-rows: 116px;
-			gap: 14px;
+			gap: 15px;
 			overflow: visible;
 		}
 
@@ -315,9 +315,10 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
-			gap: 10px;
-			padding: 14px;
-			min-height: 0;
+			gap: 8px;
+			padding: 12px;
+			box-sizing: border-box;
+			min-height: 116px;
 			border: 1px solid rgba(148, 163, 184, 0.15);
 			border-top: 6px solid var(--category-color, var(--accent));
 			border-radius: var(--radius-md);
@@ -325,6 +326,7 @@
 				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
 				var(--surface-strong);
 			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+			overflow: hidden;
 			grid-column: var(--col) / span var(--col-span, 1);
 			grid-row: var(--row) / span var(--row-span, 1);
 			opacity: 1;
@@ -349,17 +351,11 @@
 			outline: none;
 		}
 
-		.tile.is-dimmed {
-			opacity: 0.3;
-			filter: saturate(0.75);
-		}
-
 		.tile.is-hidden {
 			display: none;
 		}
 
 		.tile.featured {
-			padding: 18px;
 			background:
 				radial-gradient(circle at top right, rgba(0, 179, 54, 0.18), transparent 45%),
 				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
@@ -371,61 +367,86 @@
 			display: flex;
 			align-items: flex-start;
 			justify-content: space-between;
-			gap: 10px;
+			gap: 8px;
 		}
 
 		.element-index {
 			color: var(--soft);
-			font-size: 0.78rem;
+			font-size: 0.68rem;
 			font-weight: 700;
 			letter-spacing: 0.08em;
+			line-height: 1;
+			flex: 0 0 auto;
 		}
 
 		.tile-category {
 			display: inline-flex;
 			align-items: center;
 			gap: 6px;
-			padding: 5px 9px;
+			max-width: 100%;
+			padding: 4px 8px;
 			border-radius: 999px;
 			background: rgba(148, 163, 184, 0.12);
 			color: var(--muted);
-			font-size: 0.72rem;
+			font-size: 0.62rem;
 			font-weight: 800;
-			letter-spacing: 0.08em;
+			letter-spacing: 0.06em;
+			line-height: 1;
 			text-transform: uppercase;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
 		.tile-category::before {
 			content: "";
-			width: 8px;
-			height: 8px;
+			width: 6px;
+			height: 6px;
 			border-radius: 50%;
 			background: var(--category-color, var(--accent));
+			flex: 0 0 auto;
 		}
 
 		.tile-main {
-			display: grid;
-			gap: 6px;
-			align-content: center;
-			flex: 1;
+			display: flex;
+			flex: 1 1 auto;
+			flex-direction: column;
+			justify-content: center;
+			min-height: 0;
+			overflow: hidden;
 		}
 
 		.tile-symbol {
 			font-family: "Space Grotesk", "Avenir Next", sans-serif;
-			font-size: clamp(1.6rem, 2vw, 2.4rem);
+			font-size: 1.5rem;
 			font-weight: 700;
 			letter-spacing: -0.04em;
 			line-height: 1;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
-		.tile.featured .tile-symbol {
-			font-size: clamp(2.2rem, 3vw, 3.5rem);
-		}
-
-		.tile-name {
+		.tile-full-name,
+		.tile-detail {
 			color: var(--muted);
-			font-size: 0.9rem;
-			line-height: 1.35;
+			font-size: 0.7rem;
+			line-height: 1.2;
+			margin-top: 4px;
+		}
+
+		.tile-full-name {
+			max-width: 100%;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.tile-detail {
+			color: var(--soft);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
 		.tile-tooltip {
@@ -667,6 +688,7 @@
 				"symbol": "VBR",
 				"name": "Backup & Replication",
 				"category": "foundation",
+				"filterCategories": ["foundation", "advanced", "premium"],
 				"description": "The primary Veeam data protection engine for backup, recovery, replication, and mobility across hybrid environments.",
 				"row": 1,
 				"col": 1,
@@ -678,6 +700,7 @@
 				"symbol": "VONE",
 				"name": "Veeam ONE",
 				"category": "advanced",
+				"filterCategories": ["advanced", "premium"],
 				"description": "Monitoring, analytics, capacity planning, and alerting for protected infrastructure and backup operations.",
 				"row": 1,
 				"col": 3
@@ -685,7 +708,8 @@
 			{
 				"symbol": "VRO",
 				"name": "Veeam Recovery Orchestrator",
-				"category": "advanced",
+				"category": "premium",
+				"filterCategories": ["premium"],
 				"description": "Automates disaster recovery planning, testing, documentation, and orchestration for resilient recovery outcomes.",
 				"row": 1,
 				"col": 4
@@ -723,7 +747,7 @@
 				"col": 8
 			},
 			{
-				"symbol": "vAZ",
+				"symbol": "VBfAz",
 				"name": "for Azure",
 				"category": "cloud-native",
 				"description": "Self-managed cloud-native backup and recovery for Azure virtual machines and cloud services.",
@@ -731,7 +755,7 @@
 				"col": 3
 			},
 			{
-				"symbol": "vAWS",
+				"symbol": "VBfAWS",
 				"name": "for AWS",
 				"category": "cloud-native",
 				"description": "Self-managed protection for EC2, RDS, and other AWS workloads with policy-driven automation.",
@@ -739,7 +763,7 @@
 				"col": 4
 			},
 			{
-				"symbol": "vGCP",
+				"symbol": "VBfGCP",
 				"name": "for Google Cloud",
 				"category": "cloud-native",
 				"description": "Self-managed protection for Google Cloud workloads with native integration and recovery workflows.",
@@ -835,7 +859,7 @@
 				"col": 5
 			},
 			{
-				"symbol": "VHLR",
+				"symbol": "HLR",
 				"name": "Hardened Linux Repo",
 				"category": "storage",
 				"description": "Secure Linux-based repositories with hardened configuration and immutability support for backup targets.",
@@ -851,7 +875,7 @@
 				"col": 7
 			},
 			{
-				"symbol": "VVAULT",
+				"symbol": "VAULT",
 				"name": "Veeam Vault",
 				"category": "storage",
 				"description": "Fully managed cloud storage designed for secure, resilient off-site backup retention.",
@@ -868,8 +892,12 @@
 				color: "#00B336"
 			},
 			advanced: {
-				label: "VDP Advanced/Premium",
+				label: "VDP Advanced",
 				color: "#38BDF8"
+			},
+			premium: {
+				label: "VDP Premium",
+				color: "#2563EB"
 			},
 			baas: {
 				label: "VDC (BaaS)",
@@ -908,14 +936,19 @@
 
 		let activeCategory = null;
 
+		function getFilterCategories(element) {
+			return element.filterCategories || [element.category];
+		}
+
 		function updateInfo(element) {
 			const meta = categoryMeta[element.category];
+			const filterLabels = getFilterCategories(element).map((category) => categoryMeta[category].label);
 			infoPanel.style.setProperty("--info-color", meta.color);
 			infoCategory.textContent = meta.label;
 			infoSymbol.textContent = element.symbol;
 			infoName.textContent = element.name;
 			infoDescription.textContent = element.description;
-			infoMeta.textContent = "Category: " + meta.label + " | Symbol: " + element.symbol;
+			infoMeta.textContent = "Category: " + meta.label + " | Included in: " + filterLabels.join(", ") + " | Symbol: " + element.symbol;
 		}
 
 		function createLegend() {
@@ -953,11 +986,13 @@
 				const category = button.dataset.category;
 				const isActive = category === "all" ? activeCategory === null : activeCategory === category;
 				button.classList.toggle("is-active", isActive);
+				button.setAttribute("aria-pressed", isActive ? "true" : "false");
 			});
 		}
 
 		function createTile(element, index) {
 			const meta = categoryMeta[element.category];
+			const filterCategories = getFilterCategories(element);
 			const tile = document.createElement("article");
 
 			tile.className = "tile" + (element.featured ? " featured" : "");
@@ -965,6 +1000,7 @@
 			tile.dataset.symbol = element.symbol;
 			tile.dataset.name = element.name;
 			tile.dataset.category = element.category;
+			tile.dataset.filterCategories = filterCategories.join(" ");
 			tile.dataset.description = element.description;
 			tile.style.setProperty("--col", element.col);
 			tile.style.setProperty("--row", element.row);
@@ -975,15 +1011,15 @@
 
 			tile.innerHTML = `
 				<div class="tile-top">
+					<span class="tile-category" title="${meta.label}">${meta.label}</span>
 					<span class="element-index">${String(index + 1).padStart(2, "0")}</span>
-					<span class="tile-category">${meta.label}</span>
 				</div>
 				<div class="tile-main">
 					<strong class="tile-symbol">${element.symbol}</strong>
-					<span class="tile-name">${element.name}</span>
+					<span class="tile-full-name" title="${element.name}">${element.name}</span>
 				</div>
 				<div class="tile-bottom">
-					<span class="tile-name">${element.featured ? "Primary platform" : "Hover for details"}</span>
+					<span class="tile-detail">${element.featured ? "Primary platform" : "Hover for details"}</span>
 				</div>
 				<div class="tile-tooltip" role="tooltip">${element.description}</div>
 			`;
@@ -1005,20 +1041,21 @@
 			let visibleCount = 0;
 
 			periodicGrid.querySelectorAll(".tile").forEach((tile) => {
+				const filterCategories = tile.dataset.filterCategories.split(" ");
 				const haystack = [
 					tile.dataset.symbol,
 					tile.dataset.name,
-					categoryMeta[tile.dataset.category].label,
+					...filterCategories.map((category) => categoryMeta[category].label),
 					tile.dataset.description
 				].join(" ").toLowerCase();
 
 				const matchesSearch = term === "" || haystack.includes(term);
-				const isDimmed = activeCategory !== null && tile.dataset.category !== activeCategory;
+				const matchesCategory = activeCategory === null || filterCategories.includes(activeCategory);
+				const isVisible = matchesSearch && matchesCategory;
 
-				tile.classList.toggle("is-hidden", !matchesSearch);
-				tile.classList.toggle("is-dimmed", matchesSearch && isDimmed);
+				tile.classList.toggle("is-hidden", !isVisible);
 
-				if (matchesSearch) {
+				if (isVisible) {
 					visibleCount += 1;
 				}
 			});
@@ -1029,15 +1066,15 @@
 				if (!existingEmptyState) {
 					const emptyState = document.createElement("div");
 					emptyState.className = "empty-state";
-					emptyState.textContent = "No elements match the current search. Try a broader term or reset your filters.";
+					emptyState.textContent = "No elements match the current search or category filter. Try a broader term or reset your filters.";
 					periodicGrid.appendChild(emptyState);
 				}
 			} else if (existingEmptyState) {
 				existingEmptyState.remove();
 			}
 
-			const highlightLabel = activeCategory ? " | Highlighting " + categoryMeta[activeCategory].label : "";
-			statusCopy.textContent = visibleCount + " of " + elements.length + " elements visible" + highlightLabel;
+			const filterLabel = activeCategory ? " | Filtering " + categoryMeta[activeCategory].label : "";
+			statusCopy.textContent = visibleCount + " of " + elements.length + " elements visible" + filterLabel;
 		}
 
 		searchInput.addEventListener("input", applyFilters);
