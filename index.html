@@ -687,6 +687,16 @@
 			text-overflow: ellipsis;
 		}
 
+		.tile[data-symbol="CROWDSTRIKE"] .tile-symbol {
+			font-size: 0.82rem;
+			letter-spacing: -0.05em;
+		}
+
+		.tile[data-symbol="ServiceNow"] .tile-symbol {
+			font-size: 0.88rem;
+			letter-spacing: -0.04em;
+		}
+
 		.tile-full-name {
 			color: var(--muted);
 			font-size: 0.6rem;
@@ -1050,7 +1060,7 @@
 						</div>
 
 						<div class="status-row">
-							<div class="status-copy" id="statusCopy">37 of 37 elements visible</div>
+							<div class="status-copy" id="statusCopy">38 of 38 elements visible</div>
 							<button id="resetButton" class="reset-button" type="button">Reset filters</button>
 						</div>
 					</div>
@@ -1171,7 +1181,7 @@
 			},
 			{
 				"symbol": "RECON",
-				"name": "ReconScanner",
+				"name": "Recon for Veeam Infrastructure",
 				"category": "platform",
 				"pillar": "VDP",
 				"features": ["Dormant threat discovery", "IoC scanning", "Backup content analysis", "Pre-recovery validation"],
@@ -1180,6 +1190,18 @@
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 2,
 				"col": 4
+			},
+			{
+				"symbol": "ServiceNow",
+				"name": "Veeam App for ServiceNow",
+				"category": "security-apps",
+				"pillar": "VDP",
+				"features": ["Incident enrichment", "Operational visibility", "ITSM workflow integration"],
+				"description": "Integration app for ServiceNow that brings Veeam operational and protection signals into service management workflows.",
+				"productPageUrl": "https://www.veeam.com/products/downloads.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
+				"row": 5,
+				"col": 6
 			},
 			{
 				"symbol": "VCS",
@@ -1478,8 +1500,8 @@
 				"col": 5
 			},
 			{
-				"symbol": "VBfAz",
-				"name": "VB for Azure",
+				"symbol": "VBfAZ",
+				"name": "Veeam Backup for Microsoft Azure",
 				"category": "cloud-saas",
 				"pillar": "VDP",
 				"offeringModel": "Self-Managed",
@@ -1487,8 +1509,8 @@
 				"description": "Self-managed protection for Azure virtual machines and cloud services.",
 				"productPageUrl": "https://www.veeam.com/products/cloud/azure-backup.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbazure/guide/overview.html",
-				"row": 5,
-				"col": 6
+				"row": 4,
+				"col": 8
 			},
 			{
 				"symbol": "VBfAWS",
@@ -1553,7 +1575,7 @@
 				"col": 3
 			},
 			{
-				"symbol": "CS",
+				"symbol": "CROWDSTRIKE",
 				"name": "Veeam App for CrowdStrike Falcon LogScale",
 				"category": "security-apps",
 				"pillar": "VDP",
@@ -1565,8 +1587,8 @@
 				"col": 4
 			},
 			{
-				"symbol": "SEN",
-				"name": "Sentinel",
+				"symbol": "Sentinel",
+				"name": "Veeam App for Microsoft Sentinel",
 				"category": "security-apps",
 				"pillar": "VDP",
 				"features": ["Azure Sentinel", "Job monitoring", "Security logging"],
