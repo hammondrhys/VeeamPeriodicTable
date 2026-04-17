@@ -490,7 +490,7 @@
 
 		.tile-plugins {
 			background:
-				radial-gradient(circle at top right, rgba(20, 184, 166, 0.18), transparent 46%),
+				radial-gradient(circle at top right, rgba(249, 115, 22, 0.2), transparent 46%),
 				linear-gradient(180deg, var(--tile-highlight), transparent),
 				var(--panel-bg);
 		}
@@ -584,13 +584,31 @@
 		}
 
 		.tile-plugins .tile-category {
-			background: rgba(20, 184, 166, 0.18);
-			color: #d6fff6;
+			background: rgba(249, 115, 22, 0.18);
+			color: #ffedd5;
 		}
 
 		.tile-plugins .tile-category::before {
+			background: #F97316;
+			box-shadow: 0 0 10px rgba(249, 115, 22, 0.55);
+		}
+
+		.tile-kubernetes {
+			background:
+				radial-gradient(circle at top right, rgba(20, 184, 166, 0.18), transparent 46%),
+				linear-gradient(180deg, var(--tile-highlight), transparent),
+				var(--panel-bg);
+		}
+
+		.tile-kubernetes .tile-category {
+			background: rgba(20, 184, 166, 0.18);
+			border: 1px solid rgba(20, 184, 166, 0.34);
+			color: #d5fffa;
+		}
+
+		.tile-kubernetes .tile-category::before {
 			background: #14B8A6;
-			box-shadow: 0 0 10px rgba(20, 184, 166, 0.55);
+			box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
 		}
 
 		.tile-professional-services .tile-category {
@@ -1032,7 +1050,7 @@
 						</div>
 
 						<div class="status-row">
-							<div class="status-copy" id="statusCopy">34 of 34 elements visible</div>
+							<div class="status-copy" id="statusCopy">36 of 36 elements visible</div>
 							<button id="resetButton" class="reset-button" type="button">Reset filters</button>
 						</div>
 					</div>
@@ -1062,7 +1080,6 @@
 									<li>Professional services, strategic guidance, and cloud offerings across the Veeam ecosystem</li>
 								</ul>
 							</section>
-						</div>
 						<div class="panel-footer" id="panelFooter">
 							<a class="panel-footer-link" id="productPageLink" href="https://www.veeam.com/products/free/backup-recovery.html" target="_blank" rel="noreferrer noopener">
 								<svg class="panel-footer-link-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1238,7 +1255,7 @@
 			},
 			{
 				"symbol": "VDC365",
-				"name": "Veeam Data Cloud for 365",
+				"name": "Veeam Data Cloud for Microsoft 365",
 				"category": "cloud-saas",
 				"pillar": "VDC",
 				"offeringModel": "BaaS",
@@ -1251,21 +1268,21 @@
 				"col": 6
 			},
 			{
-				"symbol": "VDC-SF",
-				"name": "VB for Salesforce",
+				"symbol": "VDCSF",
+				"name": "Veeam Data Cloud for Salesforce",
 				"category": "cloud-saas",
 				"pillar": "VDC",
 				"offeringModel": "BaaS",
 				"supportedPlatforms": ["Salesforce records", "Metadata", "Configuration data"],
 				"description": "Protects Salesforce records, metadata, and configurations with service-led backup and restore workflows.",
 				"productPageUrl": "https://www.veeam.com/resources/wp-solution-brief-veeam-data-cloud-platform.html",
-				"userGuideUrl": "https://helpcenter.veeam.com/docs/vdc/userguide/overview.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vdc/userguide/salesforce_protection.html",
 				"row": 1,
 				"col": 7
 			},
 			{
-				"symbol": "ENTRA",
-				"name": "Entra ID",
+				"symbol": "VDCEntra",
+				"name": "Veeam Data Cloud for Microsoft Entra ID",
 				"category": "cloud-saas",
 				"pillar": "VDC",
 				"offeringModel": "BaaS",
@@ -1344,7 +1361,7 @@
 				"category": "agents",
 				"pillar": "VDP",
 				"supportedPlatforms": ["IBM AIX", "Power Systems", "UNIX workloads"],
-				"description": "Veeam Agent for IBM AIX",
+				"description": "Agent-based protection for IBM AIX workloads with backup and recovery coverage for Power Systems and legacy UNIX estates.",
 				"productPageUrl": "https://www.veeam.com/products/physical/ibm-aix-oracle-solaris-backup-recovery.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/docs/agents/unix/aix_overview.html",
 				"row": 3,
@@ -1371,8 +1388,8 @@
 				"description": "Plugin-based protection for SAP HANA workloads with application-aware backup orchestration.",
 				"productPageUrl": "https://www.veeam.com/products/applications/sap-hana-backup-recovery.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbr/userguide/sap_hana_plugin.html",
-				"row": 3,
-				"col": 6
+				"row": 4,
+				"col": 3
 			},
 			{
 				"symbol": "ORA",
@@ -1383,25 +1400,25 @@
 				"description": "Plugin-based protection for Oracle databases with recovery workflows across clustered deployments.",
 				"productPageUrl": "https://www.veeam.com/products/applications/oracle-backup-recovery.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
-				"row": 3,
-				"col": 7
+				"row": 4,
+				"col": 4
 			},
 			{
 				"symbol": "K10",
-				"name": "K10 Plugin",
-				"category": "plugins",
+				"name": "Veeam Kasten K10",
+				"category": "kubernetes",
 				"pillar": "VDP",
-				"supportedPlatforms": ["VBR", "Kubernetes", "OpenShift", "AKS / EKS / GKE"],
-				"description": "The K10 plugin for VBR, extending Backup & Replication with Kasten capabilities for Kubernetes protection and recovery workflows.",
-				"productPageUrl": "https://www.veeam.com/products/downloads.html",
-				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbr/userguide/overview.html",
+				"supportedPlatforms": ["Kubernetes", "OpenShift", "AKS", "EKS", "GKE"],
+				"description": "Enterprise Kubernetes backup, restore, disaster recovery, and application mobility powered by Veeam Kasten K10.",
+				"productPageUrl": "https://www.veeam.com/products/cloud/kubernetes-data-protection.html",
+				"userGuideUrl": "https://docs.kasten.io/latest/",
 				"row": 3,
-				"col": 8
+				"col": 6
 			},
 			{
 				"symbol": "VB365",
 				"name": "VB for Microsoft 365 (Self-Managed)",
-				"category": "plugins",
+				"category": "cloud-saas",
 				"pillar": "VDP",
 				"offeringModel": "Self-Managed",
 				"supportedPlatforms": ["Exchange Online", "SharePoint Online", "Teams", "OneDrive"],
@@ -1409,7 +1426,20 @@
 				"productPageUrl": "https://www.veeam.com/products/saas/backup-microsoft-office-365.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
-				"col": 1
+				"col": 6
+			},
+			{
+				"symbol": "VBfSf",
+				"name": "Veeam Backup for Salesforce",
+				"category": "cloud-saas",
+				"pillar": "VDP",
+				"offeringModel": "Self-Managed",
+				"supportedPlatforms": ["Salesforce records", "Metadata", "Files", "Sandbox seeding"],
+				"description": "Self-managed Salesforce protection with customer-controlled deployment, storage, backup scheduling, and granular recovery workflows.",
+				"productPageUrl": "https://www.veeam.com/products/saas/salesforce-backup.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html?productId=71&version=product%3A71%2F286",
+				"row": 4,
+				"col": 5
 			},
 			{
 				"symbol": "POST",
@@ -1421,7 +1451,7 @@
 				"productPageUrl": "https://www.veeam.com/products/downloads.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
-				"col": 2
+				"col": 1
 			},
 			{
 				"symbol": "DB2",
@@ -1433,7 +1463,7 @@
 				"productPageUrl": "https://www.veeam.com/products/downloads.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
-				"col": 3
+				"col": 2
 			},
 			{
 				"symbol": "VBfAz",
@@ -1445,8 +1475,8 @@
 				"description": "Self-managed protection for Azure virtual machines and cloud services.",
 				"productPageUrl": "https://www.veeam.com/products/cloud/azure-backup.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbazure/guide/overview.html",
-				"row": 4,
-				"col": 4
+				"row": 5,
+				"col": 6
 			},
 			{
 				"symbol": "VBfAWS",
@@ -1458,8 +1488,8 @@
 				"description": "Self-managed protection for AWS workloads with policy-driven automation.",
 				"productPageUrl": "https://www.veeam.com/products/cloud/aws-backup.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbaws/guide/overview.html",
-				"row": 4,
-				"col": 5
+				"row": 5,
+				"col": 7
 			},
 			{
 				"symbol": "VBfGCP",
@@ -1471,8 +1501,8 @@
 				"description": "Self-managed protection for Google Cloud workloads with native integration and recovery workflows.",
 				"productPageUrl": "https://www.veeam.com/products/cloud/google-cloud-backup.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
-				"row": 4,
-				"col": 6
+				"row": 5,
+				"col": 8
 			},
 			{
 				"symbol": "SPLUNK",
@@ -1557,7 +1587,12 @@
 			plugins: {
 				label: "Plugins",
 				tag: "PLUGINS",
-				color: "#06B6D4"
+				color: "#F97316"
+			},
+			kubernetes: {
+				label: "Kubernetes",
+				tag: "KUBERNETES",
+				color: "#14B8A6"
 			},
 			"cloud-saas": {
 				label: "Cloud & SaaS",
