@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>The Veeam Data Platform Map</title>
+	<title>The Veeam Ecosystem Map</title>
 	<style>
 		@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap");
 
@@ -470,6 +470,10 @@
 			transform: scale(1.02);
 		}
 
+		.tile.is-elite {
+			border-top: 3px solid var(--veeam-green);
+		}
+
 		.tile.featured {
 			background:
 				radial-gradient(circle at top right, rgba(0, 179, 54, 0.18), transparent 45%),
@@ -549,15 +553,6 @@
 			text-transform: uppercase;
 		}
 
-		.element-index {
-			color: var(--soft);
-			font-size: 0.68rem;
-			font-weight: 700;
-			letter-spacing: 0.08em;
-			line-height: 1;
-			flex: 0 0 auto;
-		}
-
 		.tile-category {
 			display: inline-flex;
 			align-items: center;
@@ -596,6 +591,17 @@
 		.tile-plugins .tile-category::before {
 			background: #14B8A6;
 			box-shadow: 0 0 10px rgba(20, 184, 166, 0.55);
+		}
+
+		.tile-professional-services .tile-category {
+			background: rgba(86, 97, 111, 0.22);
+			border: 1px solid rgba(148, 163, 184, 0.28);
+			color: #edf2f7;
+		}
+
+		.tile-professional-services .tile-category::before {
+			background: #56616F;
+			box-shadow: 0 0 10px rgba(86, 97, 111, 0.45);
 		}
 
 		.tile-pillar-vdp .tile-category {
@@ -935,7 +941,7 @@
 				<section class="control-strip">
 					<div class="control-card">
 						<div class="control-card-header">
-							<h1 class="control-strip-title">The Veeam Data Platform Map</h1>
+							<h1 class="control-strip-title">The Veeam Ecosystem Map</h1>
 							<button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
 								<svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
 									<circle cx="12" cy="12" r="4"></circle>
@@ -964,7 +970,7 @@
 								class="search-input"
 								type="search"
 								aria-label="Search The Ecosystem"
-								placeholder="Search VDP Agents, VDC Services, or Security Apps..."
+								placeholder="Search platform products, agents, cloud services, or security apps..."
 								autocomplete="off"
 								spellcheck="false"
 							>
@@ -981,7 +987,7 @@
 						</div>
 
 						<div class="status-row">
-							<div class="status-copy" id="statusCopy">29 of 29 elements visible</div>
+							<div class="status-copy" id="statusCopy">34 of 34 elements visible</div>
 							<button id="resetButton" class="reset-button" type="button">Reset filters</button>
 						</div>
 					</div>
@@ -1000,15 +1006,15 @@
 						</div>
 						<div class="info-body">
 							<p class="info-description" id="infoDescription">
-								Core data protection across the Veeam platform, self-managed products, BaaS services, and security integrations. Hover or focus a tile to inspect its product profile.
+								A broader view of the Veeam ecosystem across core platform products, agents, plugins, cloud services, and security integrations. Hover or focus a tile to inspect its product profile.
 							</p>
-							<div class="info-meta" id="infoMeta">Use the category legend to filter the map and inspect each product's pillar, group, and management model in the sidebar.</div>
+							<div class="info-meta" id="infoMeta">Use the category legend to filter the ecosystem map and inspect each product's pillar, group, and management model in the sidebar.</div>
 							<section class="info-list-block" id="infoListBlock">
 								<h3 class="info-list-title" id="infoListTitle">Key Features</h3>
 								<ul class="info-list" id="infoList">
-									<li>Platform services for backup, recovery, orchestration, and provider operations</li>
+									<li>Platform services for backup, recovery, orchestration, resilience planning, and provider operations</li>
 									<li>Agents and plugins for operating systems, databases, and Microsoft 365</li>
-									<li>Self-managed and BaaS cloud offerings across the Veeam ecosystem</li>
+									<li>Professional services, strategic guidance, and cloud offerings across the Veeam ecosystem</li>
 								</ul>
 							</section>
 						</div>
@@ -1085,6 +1091,68 @@
 				"col": 4
 			},
 			{
+				"symbol": "VCS",
+				"name": "Veeam Cyber Secure",
+				"category": "professional-services",
+				"pillar": "Professional Services",
+				"serviceLabel": "Service",
+				"badge": "ELITE",
+				"elite": true,
+				"deliveryModel": "Veeam-Led Service",
+				"features": ["Incident response", "Architectural reviews", "Financial protection warranty"],
+				"description": "An elite security program providing incident response, architectural reviews, and a financial protection warranty.",
+				"row": 6,
+				"col": 1
+			},
+			{
+				"symbol": "DRMM",
+				"name": "Data Recovery Maturity Model",
+				"category": "professional-services",
+				"pillar": "Professional Services",
+				"serviceLabel": "Engagement",
+				"deliveryModel": "Strategic Framework",
+				"features": ["Cyber-resilience assessment", "Maturity scoring", "Strategic improvement roadmap"],
+				"description": "Data Recovery Maturity Model: A strategic framework for assessing and scoring organizational cyber-resilience.",
+				"row": 6,
+				"col": 2
+			},
+			{
+				"symbol": "REA",
+				"name": "Resident Architect",
+				"category": "professional-services",
+				"pillar": "Professional Services",
+				"serviceLabel": "Prof Services",
+				"deliveryModel": "Dedicated Advisory Engagement",
+				"features": ["Prepaid architectural guidance", "Dedicated long-term architectural oversight", "Dedicated expert alignment"],
+				"description": "Resident Expert Architect - dedicated, prepaid architectural guidance with dedicated long-term architectural oversight.",
+				"row": 6,
+				"col": 3
+			},
+			{
+				"symbol": "Std PS",
+				"name": "Standard Professional Services",
+				"category": "professional-services",
+				"pillar": "Professional Services",
+				"serviceLabel": "Prof Services",
+				"deliveryModel": "Statement of Work Delivery",
+				"features": ["Implementation services", "Configuration delivery", "Defined Statement of Work (SOW) delivery"],
+				"description": "Hands-on implementation and configuration through defined Statement of Work (SOW) delivery.",
+				"row": 6,
+				"col": 4
+			},
+			{
+				"symbol": "TAM",
+				"name": "Technical Account Manager",
+				"category": "professional-services",
+				"pillar": "Professional Services",
+				"serviceLabel": "Prof Services",
+				"deliveryModel": "Named Advisory Engagement",
+				"features": ["Strategic account guidance", "Operational alignment", "Escalation coordination"],
+				"description": "Technical Account Manager - a named advisor providing ongoing strategic guidance, operational alignment, and escalation coordination.",
+				"row": 6,
+				"col": 5
+			},
+			{
 				"symbol": "VDC365",
 				"name": "Veeam Data Cloud for 365",
 				"category": "cloud-saas",
@@ -1127,7 +1195,7 @@
 				"features": ["Azure BaaS", "Managed policy operations", "Cloud-hosted protection"],
 				"description": "A Veeam Data Cloud BaaS offering for Azure workloads with managed operations and hosted protection services.",
 				"row": 2,
-				"col": 6
+				"col": 7
 			},
 			{
 				"symbol": "Vault",
@@ -1138,7 +1206,7 @@
 				"features": ["Immutable cloud retention", "Managed off-site storage", "Recovery-ready archives"],
 				"description": "Managed off-site retention and immutable storage through the Veeam Data Cloud service portfolio.",
 				"row": 2,
-				"col": 7
+				"col": 8
 			},
 			{
 				"symbol": "WIN",
@@ -1334,6 +1402,11 @@
 				tag: "PLATFORM",
 				color: "#00B336"
 			},
+			"professional-services": {
+				label: "Professional Services",
+				tag: "PROFESSIONAL SERVICES",
+				color: "#56616F"
+			},
 			agents: {
 				label: "Agents",
 				tag: "AGENTS",
@@ -1394,6 +1467,35 @@
 			return element.filterCategories || [element.category];
 		}
 
+		function isProfessionalService(element) {
+			return element.category === "professional-services";
+		}
+
+		function getElementTypeLabel(element) {
+			return isProfessionalService(element) ? (element.serviceLabel || "Service") : element.pillar;
+		}
+
+		function getElementGroupLabel(element, meta) {
+			return getElementTypeLabel(element) + " / " + meta.label;
+		}
+
+		function getElementMetaSummary(element, meta) {
+			if (isProfessionalService(element)) {
+				const deliveryLabel = element.deliveryModel ? "Engagement: " + element.deliveryModel : "Type: " + getElementTypeLabel(element);
+				return "Type: " + getElementTypeLabel(element) + " | " + deliveryLabel + " | Group: " + meta.label + " | Symbol: " + element.symbol;
+			}
+
+			const managementLabel = element.pillar === "VDC" ? "Veeam-Managed (BaaS)" : "Customer-Managed";
+			const deliveryLabel = element.deliveryModel ? "Delivery: " + element.deliveryModel : "Management: " + managementLabel;
+			const offeringMeta = element.offeringModel ? " | Model: " + element.offeringModel : "";
+			return "Pillar: " + element.pillar + " | " + deliveryLabel + " | Group: " + meta.label + offeringMeta + " | Symbol: " + element.symbol;
+		}
+
+		function getTileLabelTitle(element, meta) {
+			const leadLabel = isProfessionalService(element) ? getElementTypeLabel(element) : element.pillar + " pillar";
+			return leadLabel + " | " + meta.label;
+		}
+
 		function getInfoListData(element) {
 			if (Array.isArray(element.supportedPlatforms) && element.supportedPlatforms.length > 0) {
 				return {
@@ -1422,14 +1524,12 @@
 		function updateInfo(element) {
 			const meta = categoryMeta[element.category];
 			const infoListData = getInfoListData(element);
-			const managementLabel = element.pillar === "VDC" ? "Veeam-Managed (BaaS)" : "Customer-Managed";
-			const offeringMeta = element.offeringModel ? " | Model: " + element.offeringModel : "";
 			infoPanel.style.setProperty("--info-color", meta.color);
-			infoCategory.textContent = element.pillar + " / " + meta.label;
+			infoCategory.textContent = getElementGroupLabel(element, meta);
 			infoSymbol.textContent = element.symbol;
 			infoName.textContent = element.name;
 			infoDescription.textContent = element.description;
-			infoMeta.textContent = "Pillar: " + element.pillar + " | Management: " + managementLabel + " | Group: " + meta.label + offeringMeta + " | Symbol: " + element.symbol;
+			infoMeta.textContent = getElementMetaSummary(element, meta);
 
 			if (infoListData) {
 				infoListTitle.textContent = infoListData.title;
@@ -1592,10 +1692,11 @@
 			const filterCategories = getFilterCategories(element);
 			const tile = document.createElement("article");
 			const offeringTag = element.symbol === "VDC365" || element.symbol === "VDC-AZ" ? '<span class="baas-tag">BaaS</span>' : "";
+			const topMeta = offeringTag ? '<div class="tile-top-meta">' + offeringTag + '</div>' : "";
 
 			const tileClasses = ["tile"];
 			tileClasses.push("tile-" + element.category);
-			tileClasses.push("tile-pillar-" + element.pillar.toLowerCase());
+			tileClasses.push("tile-pillar-" + element.pillar.toLowerCase().replace(/\s+/g, "-"));
 
 			if (element.featured) {
 				tileClasses.push("featured");
@@ -1604,6 +1705,10 @@
 			if (element.symbol === "VBR") {
 				tileClasses.push("tile-foundation-anchor");
 				tileClasses.push("vbr-tile");
+			}
+
+			if (element.elite) {
+				tileClasses.push("is-elite");
 			}
 
 			if (element.symbol === selectedSymbol) {
@@ -1620,7 +1725,9 @@
 			tile.dataset.description = element.description;
 			tile.dataset.searchExtras = [
 				element.pillar,
+				element.serviceLabel || "",
 				element.offeringModel || "",
+				element.deliveryModel || "",
 				...(element.supportedPlatforms || []),
 				...(element.features || []),
 				...(element.keyFeatures || [])
@@ -1634,11 +1741,8 @@
 
 			tile.innerHTML = `
 				<div class="tile-top">
-					<span class="tile-category" title="${element.pillar} pillar | ${meta.label}">${element.pillar}</span>
-					<div class="tile-top-meta">
-						${offeringTag}
-						<span class="element-index">${String(index + 1).padStart(2, "0")}</span>
-					</div>
+					<span class="tile-category" title="${getTileLabelTitle(element, meta)}">${getElementTypeLabel(element)}</span>
+					${topMeta}
 				</div>
 				<div class="tile-main">
 					<strong class="tile-symbol">${element.symbol}</strong>
