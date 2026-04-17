@@ -2005,7 +2005,15 @@
 
 		function renderGrid() {
 			periodicGrid.innerHTML = "";
-			elements.forEach(createTile);
+			[...elements]
+				.sort((left, right) => {
+					if (left.row !== right.row) {
+						return left.row - right.row;
+					}
+
+					return left.col - right.col;
+				})
+				.forEach(createTile);
 		}
 
 		function applyFilters() {
