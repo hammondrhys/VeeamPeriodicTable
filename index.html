@@ -817,6 +817,51 @@
 			color: var(--veeam-green);
 		}
 
+		.panel-footer {
+			display: flex;
+			gap: 15px;
+			flex-wrap: wrap;
+			align-items: center;
+			margin-top: 20px;
+			padding-top: 20px;
+			border-top: 1px solid var(--border);
+		}
+
+		.panel-footer.is-hidden {
+			display: none;
+		}
+
+		.panel-footer-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 12px;
+			border: 1px solid color-mix(in srgb, var(--veeam-green) 34%, var(--border));
+			border-radius: 999px;
+			color: var(--veeam-green);
+			font-size: 0.85rem;
+			font-weight: 600;
+			text-decoration: none;
+			transition: opacity var(--transition), border-color var(--transition), background var(--transition);
+		}
+
+		.panel-footer-link:hover,
+		.panel-footer-link:focus-visible {
+			text-decoration: underline;
+			opacity: 0.8;
+			outline: none;
+		}
+
+		.panel-footer-link.is-hidden {
+			display: none;
+		}
+
+		.panel-footer-link-icon {
+			width: 14px;
+			height: 14px;
+			flex: 0 0 auto;
+		}
+
 		.empty-state {
 			padding: 28px;
 			border: 1px dashed rgba(148, 163, 184, 0.22);
@@ -1018,6 +1063,23 @@
 								</ul>
 							</section>
 						</div>
+						<div class="panel-footer" id="panelFooter">
+							<a class="panel-footer-link" id="productPageLink" href="https://www.veeam.com/data-platform.html" target="_blank" rel="noreferrer noopener">
+								<svg class="panel-footer-link-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M14 5h5v5"></path>
+									<path d="M10 14 19 5"></path>
+									<path d="M19 14v5h-14v-14h5"></path>
+								</svg>
+								<span>Product Page</span>
+							</a>
+							<a class="panel-footer-link" id="userGuideLink" href="https://helpcenter.veeam.com/" target="_blank" rel="noreferrer noopener">
+								<svg class="panel-footer-link-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+									<path d="M6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5V4.5A2.5 2.5 0 0 1 6.5 2Z"></path>
+								</svg>
+								<span>User Guide</span>
+							</a>
+						</div>
 					</aside>
 				</div>
 			</main>
@@ -1034,6 +1096,8 @@
 				"tag": "VDP FOUNDATION",
 				"keyFeatures": ["Backup orchestration", "Recovery and replication", "Hybrid workload mobility"],
 				"description": "The primary Veeam data protection engine for backup, recovery, replication, and mobility across hybrid environments.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbr/userguide/overview.html",
 				"row": 1,
 				"col": 1,
 				"rowSpan": 2,
@@ -1047,6 +1111,8 @@
 				"pillar": "VDP",
 				"keyFeatures": ["Monitoring and alerting", "Capacity planning", "Performance analytics"],
 				"description": "Monitoring, analytics, capacity planning, and alerting for protected infrastructure and backup operations.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/one/userguide/about_one.html",
 				"row": 1,
 				"col": 3
 			},
@@ -1057,6 +1123,8 @@
 				"pillar": "VDP",
 				"keyFeatures": ["DR orchestration", "Automated testing", "Compliance-ready documentation"],
 				"description": "Automates disaster recovery planning, testing, documentation, and orchestration for resilient recovery outcomes.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vro/userguide/overview.html",
 				"row": 1,
 				"col": 4
 			},
@@ -1067,6 +1135,8 @@
 				"pillar": "VDP",
 				"features": ["Multi-tenant management", "Remote monitoring", "License reporting", "BaaS/DRaaS enablement"],
 				"description": "Centralized operations console for service providers managing tenants, usage, monitoring, and backup services at scale.",
+				"productPageUrl": "https://www.veeam.com/products/service-provider/console.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vac/provider_user/overview.html",
 				"row": 1,
 				"col": 5
 			},
@@ -1077,6 +1147,8 @@
 				"pillar": "VDP",
 				"features": ["Federated management", "Self-service recovery", "Global file search", "Multi-server reporting"],
 				"description": "Centralized enterprise management for multiple Veeam backup servers with delegated recovery and global visibility.",
+				"productPageUrl": "https://www.veeam.com/products/backup-enterprise-manager.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbr/userguide/enterprise_manager.html",
 				"row": 2,
 				"col": 3
 			},
@@ -1087,6 +1159,8 @@
 				"pillar": "VDP",
 				"features": ["Dormant threat discovery", "IoC scanning", "Backup content analysis", "Pre-recovery validation"],
 				"description": "A standalone security product for pre-recovery scanning, dormant threat discovery, and backup content validation.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 2,
 				"col": 4
 			},
@@ -1101,6 +1175,8 @@
 				"deliveryModel": "Veeam-Led Service",
 				"features": ["Incident response", "Architectural reviews", "Financial protection warranty"],
 				"description": "An elite security program providing incident response, architectural reviews, and a financial protection warranty.",
+				"productPageUrl": "https://www.veeam.com/services.html",
+				"userGuideUrl": "",
 				"row": 6,
 				"col": 1
 			},
@@ -1113,6 +1189,8 @@
 				"deliveryModel": "Strategic Framework",
 				"features": ["Cyber-resilience assessment", "Maturity scoring", "Strategic improvement roadmap"],
 				"description": "Data Recovery Maturity Model: A strategic framework for assessing and scoring organizational cyber-resilience.",
+				"productPageUrl": "https://www.veeam.com/services.html",
+				"userGuideUrl": "",
 				"row": 6,
 				"col": 2
 			},
@@ -1125,6 +1203,8 @@
 				"deliveryModel": "Dedicated Advisory Engagement",
 				"features": ["Prepaid architectural guidance", "Dedicated long-term architectural oversight", "Dedicated expert alignment"],
 				"description": "Resident Expert Architect - dedicated, prepaid architectural guidance with dedicated long-term architectural oversight.",
+				"productPageUrl": "https://www.veeam.com/services.html",
+				"userGuideUrl": "",
 				"row": 6,
 				"col": 3
 			},
@@ -1137,6 +1217,8 @@
 				"deliveryModel": "Statement of Work Delivery",
 				"features": ["Implementation services", "Configuration delivery", "Defined Statement of Work (SOW) delivery"],
 				"description": "Hands-on implementation and configuration through defined Statement of Work (SOW) delivery.",
+				"productPageUrl": "https://www.veeam.com/services.html",
+				"userGuideUrl": "",
 				"row": 6,
 				"col": 4
 			},
@@ -1149,6 +1231,8 @@
 				"deliveryModel": "Named Advisory Engagement",
 				"features": ["Strategic account guidance", "Operational alignment", "Escalation coordination"],
 				"description": "Technical Account Manager - a named advisor providing ongoing strategic guidance, operational alignment, and escalation coordination.",
+				"productPageUrl": "https://www.veeam.com/services.html",
+				"userGuideUrl": "",
 				"row": 6,
 				"col": 5
 			},
@@ -1161,6 +1245,8 @@
 				"features": ["Full BaaS", "Microsoft-hosted storage", "Unlimited retention available"],
 				"supportedPlatforms": ["Exchange Online", "SharePoint Online", "Teams", "OneDrive"],
 				"description": "A fully managed Microsoft 365 BaaS offering through Veeam Data Cloud with hosted storage and long-term retention options.",
+				"productPageUrl": "https://www.veeam.com/data-cloud.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vdc/userguide/overview.html",
 				"row": 1,
 				"col": 6
 			},
@@ -1172,6 +1258,8 @@
 				"offeringModel": "BaaS",
 				"supportedPlatforms": ["Salesforce records", "Metadata", "Configuration data"],
 				"description": "Protects Salesforce records, metadata, and configurations with service-led backup and restore workflows.",
+				"productPageUrl": "https://www.veeam.com/data-cloud.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vdc/userguide/overview.html",
 				"row": 1,
 				"col": 7
 			},
@@ -1183,6 +1271,8 @@
 				"offeringModel": "BaaS",
 				"supportedPlatforms": ["Directory objects", "Identity configuration", "Tenant-level recovery"],
 				"description": "Protection for Entra ID identities, configuration, and directory objects.",
+				"productPageUrl": "https://www.veeam.com/data-cloud.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vdc/userguide/overview.html",
 				"row": 1,
 				"col": 8
 			},
@@ -1194,6 +1284,8 @@
 				"offeringModel": "BaaS",
 				"features": ["Azure BaaS", "Managed policy operations", "Cloud-hosted protection"],
 				"description": "A Veeam Data Cloud BaaS offering for Azure workloads with managed operations and hosted protection services.",
+				"productPageUrl": "https://www.veeam.com/data-cloud.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vdc/userguide/overview.html",
 				"row": 2,
 				"col": 7
 			},
@@ -1205,6 +1297,8 @@
 				"offeringModel": "BaaS",
 				"features": ["Immutable cloud retention", "Managed off-site storage", "Recovery-ready archives"],
 				"description": "Managed off-site retention and immutable storage through the Veeam Data Cloud service portfolio.",
+				"productPageUrl": "https://www.veeam.com/products/veeam-data-cloud/cloud-storage-vault.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vdc/userguide/overview.html",
 				"row": 2,
 				"col": 8
 			},
@@ -1215,6 +1309,8 @@
 				"pillar": "VDP",
 				"supportedPlatforms": ["Windows Server", "Windows 11/10", "Active Directory", "Microsoft SQL Server (agent-based)"],
 				"description": "Agent-based protection for Windows servers, workstations, and application workloads.",
+				"productPageUrl": "https://www.veeam.com/products/physical/windows-backup-recovery.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/agentforwindows/userguide/overview.html",
 				"row": 3,
 				"col": 1
 			},
@@ -1225,6 +1321,8 @@
 				"pillar": "VDP",
 				"supportedPlatforms": ["RHEL", "Ubuntu", "Debian", "Oracle Linux", "SAP HANA (Agent-based)"],
 				"description": "Agent-based protection for Linux systems with application-aware backup and restore options.",
+				"productPageUrl": "https://www.veeam.com/products/physical/linux-backup-recovery.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/agentforlinux/userguide/overview.html",
 				"row": 3,
 				"col": 2
 			},
@@ -1235,6 +1333,8 @@
 				"pillar": "VDP",
 				"supportedPlatforms": ["macOS endpoints", "Apple Silicon", "Intel Macs"],
 				"description": "Agent-based backup and recovery for macOS endpoints and user devices.",
+				"productPageUrl": "https://www.veeam.com/products/physical/mac-backup-recovery.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/agentformac/userguide/overview.html",
 				"row": 3,
 				"col": 3
 			},
@@ -1245,6 +1345,8 @@
 				"pillar": "VDP",
 				"supportedPlatforms": ["AIX", "Solaris", "Power systems", "SPARC estates"],
 				"description": "Agent-based protection for UNIX workloads including AIX and Solaris environments.",
+				"productPageUrl": "https://www.veeam.com/products/physical/ibm-aix-oracle-solaris-backup-recovery.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 3,
 				"col": 4
 			},
@@ -1255,6 +1357,8 @@
 				"pillar": "VDP",
 				"supportedPlatforms": ["SAP HANA", "HANA scale-up nodes", "Linux agent deployments"],
 				"description": "Plugin-based protection for SAP HANA workloads with application-aware backup orchestration.",
+				"productPageUrl": "https://www.veeam.com/products/applications/sap-hana-backup-recovery.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbr/userguide/sap_hana_plugin.html",
 				"row": 3,
 				"col": 5
 			},
@@ -1265,6 +1369,8 @@
 				"pillar": "VDP",
 				"supportedPlatforms": ["Oracle Database", "RAC", "ASM", "Linux and UNIX hosts"],
 				"description": "Plugin-based protection for Oracle databases with recovery workflows across clustered deployments.",
+				"productPageUrl": "https://www.veeam.com/products/applications/oracle-backup-recovery.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 3,
 				"col": 6
 			},
@@ -1275,6 +1381,8 @@
 				"pillar": "VDP",
 				"supportedPlatforms": ["VBR", "Kubernetes", "OpenShift", "AKS / EKS / GKE"],
 				"description": "The K10 plugin for VBR, extending Backup & Replication with Kasten capabilities for Kubernetes protection and recovery workflows.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbr/userguide/overview.html",
 				"row": 3,
 				"col": 7
 			},
@@ -1286,6 +1394,8 @@
 				"offeringModel": "Self-Managed",
 				"supportedPlatforms": ["Exchange Online", "SharePoint Online", "Teams", "OneDrive"],
 				"description": "Self-managed Microsoft 365 protection with customer-controlled infrastructure, storage, and retention strategy.",
+				"productPageUrl": "https://www.veeam.com/products/saas/backup-microsoft-office-365.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
 				"col": 1
 			},
@@ -1296,6 +1406,8 @@
 				"pillar": "VDP",
 				"features": ["Native engine support", "v12+ optimized", "Transaction log backup"],
 				"description": "Plugin-based protection for PostgreSQL deployments with application-aware backup and restore workflows.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
 				"col": 2
 			},
@@ -1306,6 +1418,8 @@
 				"pillar": "VDP",
 				"supportedPlatforms": ["IBM DB2", "Linux and UNIX hosts", "Database recovery"],
 				"description": "Plugin-based protection for IBM DB2 environments with database-aware backup and recovery workflows.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
 				"col": 3
 			},
@@ -1317,6 +1431,8 @@
 				"offeringModel": "Self-Managed",
 				"supportedPlatforms": ["Azure VMs", "Snapshots", "Native recovery workflows"],
 				"description": "Self-managed protection for Azure virtual machines and cloud services.",
+				"productPageUrl": "https://www.veeam.com/products/cloud/azure-backup.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbazure/guide/overview.html",
 				"row": 4,
 				"col": 4
 			},
@@ -1328,6 +1444,8 @@
 				"offeringModel": "Self-Managed",
 				"supportedPlatforms": ["EC2", "EBS snapshots", "RDS protection"],
 				"description": "Self-managed protection for AWS workloads with policy-driven automation.",
+				"productPageUrl": "https://www.veeam.com/products/cloud/aws-backup.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/docs/vbaws/guide/overview.html",
 				"row": 4,
 				"col": 5
 			},
@@ -1339,6 +1457,8 @@
 				"offeringModel": "Self-Managed",
 				"supportedPlatforms": ["Compute Engine", "Persistent Disk", "Cloud-native recovery"],
 				"description": "Self-managed protection for Google Cloud workloads with native integration and recovery workflows.",
+				"productPageUrl": "https://www.veeam.com/products/cloud/google-cloud-backup.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
 				"col": 6
 			},
@@ -1349,6 +1469,8 @@
 				"pillar": "VDP",
 				"features": ["Health monitoring", "Security status", "Splunk integration"],
 				"description": "Security app for Splunk that surfaces Veeam health, security status, and operational signals.",
+				"productPageUrl": "https://www.veeam.com/resources/wp-streamline-business-resilience-veeam-app-splunk.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 5,
 				"col": 1
 			},
@@ -1359,6 +1481,8 @@
 				"pillar": "VDP",
 				"features": ["Incident response", "XSOAR playbooks", "Security activity monitoring"],
 				"description": "Integration app for Palo Alto XSOAR with Veeam-aware playbooks and incident response workflows.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 5,
 				"col": 2
 			},
@@ -1369,6 +1493,8 @@
 				"pillar": "VDP",
 				"features": ["AI-driven SecOps", "XSIAM content pack", "Threat hunting"],
 				"description": "Integration app for Palo Alto XSIAM with content packs for AI-assisted operations and threat hunting.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 5,
 				"col": 3
 			},
@@ -1379,6 +1505,8 @@
 				"pillar": "VDP",
 				"features": ["Falcon LogScale", "Log analysis", "Security activity"],
 				"description": "Integration app for CrowdStrike that feeds Veeam telemetry into Falcon LogScale for analysis.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 5,
 				"col": 4
 			},
@@ -1389,6 +1517,8 @@
 				"pillar": "VDP",
 				"features": ["Azure Sentinel", "Job monitoring", "Security logging"],
 				"description": "Integration app for Microsoft Sentinel with monitoring, logging, and response-ready Veeam events.",
+				"productPageUrl": "https://www.veeam.com/data-platform.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 5,
 				"col": 5
 			}
@@ -1447,6 +1577,9 @@
 		const infoListBlock = document.getElementById("infoListBlock");
 		const infoListTitle = document.getElementById("infoListTitle");
 		const infoList = document.getElementById("infoList");
+		const panelFooter = document.getElementById("panelFooter");
+		const productPageLink = document.getElementById("productPageLink");
+		const userGuideLink = document.getElementById("userGuideLink");
 
 		let activeCategory = null;
 		let activePillar = null;
@@ -1521,6 +1654,23 @@
 			return null;
 		}
 
+		function syncInfoFooterLink(link, url) {
+			const hasUrl = typeof url === "string" && url.trim() !== "";
+			link.classList.toggle("is-hidden", !hasUrl);
+
+			if (hasUrl) {
+				link.href = url;
+			} else {
+				link.removeAttribute("href");
+			}
+		}
+
+		function syncInfoFooter(element) {
+			syncInfoFooterLink(productPageLink, element.productPageUrl);
+			syncInfoFooterLink(userGuideLink, element.userGuideUrl);
+			panelFooter.classList.toggle("is-hidden", productPageLink.classList.contains("is-hidden") && userGuideLink.classList.contains("is-hidden"));
+		}
+
 		function updateInfo(element) {
 			const meta = categoryMeta[element.category];
 			const infoListData = getInfoListData(element);
@@ -1530,6 +1680,7 @@
 			infoName.textContent = element.name;
 			infoDescription.textContent = element.description;
 			infoMeta.textContent = getElementMetaSummary(element, meta);
+			syncInfoFooter(element);
 
 			if (infoListData) {
 				infoListTitle.textContent = infoListData.title;
