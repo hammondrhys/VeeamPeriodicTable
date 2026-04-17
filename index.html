@@ -8,21 +8,54 @@
 		@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap");
 
 		:root {
-			--bg: #0f172a;
-			--bg-2: #172554;
-			--surface: rgba(15, 23, 42, 0.74);
-			--surface-strong: rgba(30, 41, 59, 0.92);
-			--surface-soft: rgba(30, 41, 59, 0.58);
-			--border: rgba(148, 163, 184, 0.18);
-			--text: #f8fafc;
+			color-scheme: dark;
+			--bg: #0b1120;
+			--panel-bg: #151f32;
+			--text: #ffffff;
+			--border: #1e293b;
+			--card-bg: var(--panel-bg);
+			--surface: color-mix(in srgb, var(--panel-bg) 88%, transparent);
+			--surface-strong: var(--panel-bg);
+			--surface-soft: color-mix(in srgb, var(--panel-bg) 76%, transparent);
+			--input-bg: color-mix(in srgb, var(--panel-bg) 92%, #0f172a);
 			--muted: #cbd5e1;
 			--soft: #94a3b8;
-			--accent: #00b336;
+			--accent: #00B336;
+			--overlay: rgba(8, 16, 31, 0.28);
+			--grid-line: rgba(148, 163, 184, 0.05);
+			--tile-highlight: rgba(255, 255, 255, 0.04);
+			--info-kicker-base: rgba(21, 31, 50, 0.92);
+			--info-kicker-text: #f8fafc;
+			--empty-state-bg: rgba(21, 31, 50, 0.36);
+			--bg-2: #172554;
 			--shadow: 0 28px 80px rgba(2, 6, 23, 0.45);
 			--radius-xl: 28px;
 			--radius-lg: 22px;
 			--radius-md: 18px;
 			--transition: 180ms ease;
+		}
+
+		[data-theme="light"] {
+			color-scheme: light;
+			--bg: #f8fafc;
+			--panel-bg: #ffffff;
+			--text: #0f172a;
+			--border: #e2e8f0;
+			--card-bg: var(--panel-bg);
+			--surface: color-mix(in srgb, var(--panel-bg) 88%, transparent);
+			--surface-strong: var(--panel-bg);
+			--surface-soft: color-mix(in srgb, var(--panel-bg) 82%, #e2e8f0);
+			--input-bg: color-mix(in srgb, var(--panel-bg) 94%, #f1f5f9);
+			--muted: #475569;
+			--soft: #64748b;
+			--overlay: rgba(226, 232, 240, 0.12);
+			--grid-line: rgba(148, 163, 184, 0.12);
+			--tile-highlight: rgba(255, 255, 255, 0.7);
+			--info-kicker-base: rgba(255, 255, 255, 0.96);
+			--info-kicker-text: #0f172a;
+			--empty-state-bg: rgba(255, 255, 255, 0.72);
+			--bg-2: #dbeafe;
+			--shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
 		}
 
 		* {
@@ -33,11 +66,7 @@
 		body {
 			margin: 0;
 			min-height: 100%;
-			background:
-				radial-gradient(circle at 15% 20%, rgba(0, 179, 54, 0.2), transparent 26%),
-				radial-gradient(circle at 85% 12%, rgba(56, 189, 248, 0.16), transparent 22%),
-				radial-gradient(circle at 50% 100%, rgba(249, 115, 22, 0.15), transparent 28%),
-				linear-gradient(180deg, var(--bg), #08101f 100%);
+			background: var(--bg);
 			color: var(--text);
 			font-family: "Manrope", "Segoe UI", sans-serif;
 		}
@@ -45,6 +74,7 @@
 		body {
 			position: relative;
 			overflow-x: hidden;
+			overflow-y: auto;
 		}
 
 		body::before,
@@ -57,139 +87,142 @@
 
 		body::before {
 			background-image:
-				linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
-				linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+				linear-gradient(var(--grid-line) 1px, transparent 1px),
+				linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
 			background-size: 42px 42px;
 			mask-image: radial-gradient(circle at center, black 48%, transparent 100%);
 			opacity: 0.65;
 		}
 
 		body::after {
-			background: linear-gradient(180deg, transparent, rgba(8, 16, 31, 0.55));
+			background: linear-gradient(180deg, transparent, var(--overlay));
 		}
 
 		.shell {
 			position: relative;
 			z-index: 1;
-			width: min(1440px, calc(100% - 32px));
+			width: 100%;
+			min-height: 100vh;
+			margin: 0;
+			padding: 0;
+		}
+
+		.app-container {
+			display: block;
+			height: auto;
+			overflow: visible;
+		}
+
+		.main-content {
+			width: min(1480px, calc(100% - 32px));
 			margin: 0 auto;
-			padding: 40px 0 48px;
+			overflow: visible;
+			padding: 24px 0 48px;
+			scrollbar-gutter: stable;
+			position: relative;
 		}
 
-		.hero {
-			display: grid;
-			grid-template-columns: minmax(0, 1.25fr) minmax(320px, 420px);
-			gap: 22px;
-			align-items: stretch;
-			margin-bottom: 24px;
+		.control-strip {
+			display: block;
 		}
 
-		.hero-card,
-		.panel,
-		.info-panel {
+		.workspace-layout {
+			display: flex;
+			align-items: flex-start;
+			gap: 24px;
+			margin-top: 0;
+		}
+
+		.theme-toggle {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			min-width: 46px;
+			height: 46px;
+			padding: 0 14px;
 			border: 1px solid var(--border);
-			background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.66));
+			border-radius: 999px;
+			background: var(--panel-bg);
+			color: var(--text);
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(20px);
+			cursor: pointer;
+			transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition), background var(--transition);
+		}
+
+		.theme-toggle:hover,
+		.theme-toggle:focus-visible {
+			transform: translateY(-1px);
+			border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+			box-shadow: 0 18px 44px rgba(2, 6, 23, 0.2);
+			outline: none;
+		}
+
+		.theme-toggle-icon {
+			width: 18px;
+			height: 18px;
+			flex: 0 0 auto;
+		}
+
+		.theme-toggle-label {
+			font-size: 0.82rem;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.theme-toggle .theme-icon-moon {
+			display: none;
+		}
+
+		[data-theme="light"] .theme-toggle .theme-icon-sun {
+			display: none;
+		}
+
+		[data-theme="light"] .theme-toggle .theme-icon-moon {
+			display: block;
+		}
+
+		.panel {
+			border: 1px solid var(--border);
+			background: var(--panel-bg);
 			backdrop-filter: blur(20px);
 			box-shadow: var(--shadow);
 		}
 
-		.hero-card {
-			padding: 30px;
-			border-radius: var(--radius-xl);
-			overflow: hidden;
-		}
-
-		.hero-copy {
-			position: relative;
-			min-height: 100%;
-		}
-
-		.header {
-			max-width: 650px;
-		}
-
-		.hero-copy::after {
-			content: "";
-			position: absolute;
-			inset: auto -80px -80px auto;
-			width: 260px;
-			height: 260px;
-			border-radius: 50%;
-			background: radial-gradient(circle, rgba(0, 179, 54, 0.24), transparent 70%);
-			filter: blur(8px);
-		}
-
-		.eyebrow {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			margin: 0 0 16px;
-			padding: 8px 12px;
-			border-radius: 999px;
-			background: rgba(0, 179, 54, 0.12);
-			color: #9ff4bb;
-			font-size: 0.78rem;
-			font-weight: 800;
-			letter-spacing: 0.12em;
-			text-transform: uppercase;
-		}
-
-		.eyebrow::before {
-			content: "";
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			background: var(--accent);
-			box-shadow: 0 0 0 6px rgba(0, 179, 54, 0.14);
-		}
-
-		h1 {
+		.control-strip-title {
 			margin: 0;
-			max-width: 12ch;
 			font-family: "Space Grotesk", "Avenir Next", sans-serif;
-			font-size: clamp(2.6rem, 5vw, 4.6rem);
-			line-height: 0.95;
-			letter-spacing: -0.04em;
-		}
-
-		.header h1 {
-			text-wrap: balance;
-		}
-
-		.hero-copy p:last-of-type {
-			max-width: 60ch;
-			margin: 18px 0 0;
-			color: var(--muted);
-			font-size: 1rem;
-			line-height: 1.7;
-		}
-
-		.hero-tools {
-			display: grid;
-			gap: 16px;
-			align-content: start;
-		}
-
-		.search-card {
-			padding: 24px;
-			border-radius: var(--radius-xl);
-		}
-
-		.search-label {
-			display: block;
-			margin-bottom: 10px;
-			color: var(--muted);
-			font-size: 0.88rem;
+			font-size: clamp(1.5rem, 2.2vw, 1.8rem);
 			font-weight: 700;
-			letter-spacing: 0.04em;
-			text-transform: uppercase;
+			letter-spacing: -0.03em;
+			line-height: 1.05;
+		}
+
+		.control-card {
+			width: 100%;
+			background: var(--panel-bg);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			padding: 24px;
+			margin-bottom: 24px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+		}
+
+		.control-card-header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			margin-bottom: 12px;
 		}
 
 		.search-input {
 			width: 100%;
-			border: 1px solid rgba(148, 163, 184, 0.18);
+			border: 1px solid var(--border);
 			border-radius: 18px;
-			background: rgba(15, 23, 42, 0.78);
+			background: var(--input-bg);
 			color: var(--text);
 			padding: 15px 18px;
 			font: inherit;
@@ -206,17 +239,18 @@
 		.legend {
 			display: flex;
 			flex-wrap: wrap;
-			gap: 10px;
-			margin-top: 18px;
+			gap: 8px;
+			margin-top: 10px;
 		}
 
 		.filter-group {
-			margin-top: 18px;
+			margin-top: 10px;
+			width: 100%;
 		}
 
 		.filter-group-label {
 			display: block;
-			margin-bottom: 10px;
+			margin-bottom: 8px;
 			color: var(--soft);
 			font-size: 0.76rem;
 			font-weight: 800;
@@ -227,8 +261,8 @@
 		.legend button,
 		.reset-button {
 			appearance: none;
-			border: 1px solid rgba(148, 163, 184, 0.18);
-			background: rgba(15, 23, 42, 0.78);
+			border: 1px solid var(--border);
+			background: var(--input-bg);
 			color: var(--text);
 			cursor: pointer;
 			transition: transform var(--transition), border-color var(--transition), background var(--transition), opacity var(--transition);
@@ -258,6 +292,11 @@
 			border-color: rgba(0, 179, 54, 0.5);
 		}
 
+		.legend button.is-dimmed {
+			opacity: 0.38;
+			border-color: rgba(148, 163, 184, 0.12);
+		}
+
 		.legend-swatch {
 			width: 10px;
 			height: 10px;
@@ -270,9 +309,10 @@
 			align-items: center;
 			justify-content: space-between;
 			gap: 12px;
-			margin-top: 18px;
-			padding-top: 16px;
+			margin-top: 14px;
+			padding-top: 10px;
 			border-top: 1px solid rgba(148, 163, 184, 0.12);
+			width: 100%;
 		}
 
 		.status-copy {
@@ -288,27 +328,20 @@
 		}
 
 		.panel-layout {
-			display: grid;
-			grid-template-columns: minmax(0, 1fr) 320px;
-			gap: 20px;
-			align-items: start;
+			display: block;
 		}
 
 		.panel {
 			border-radius: calc(var(--radius-xl) + 6px);
-			padding: 26px;
+			padding: 18px;
 			overflow: hidden;
 		}
 
-		.panel-heading {
-			display: flex;
-			align-items: baseline;
-			justify-content: space-between;
-			gap: 12px;
-			margin-bottom: 20px;
+		.platform-grid {
+			flex: 1;
+			min-width: 0;
 		}
 
-		.panel-heading h2,
 		.info-panel h2 {
 			margin: 0;
 			font-family: "Space Grotesk", "Avenir Next", sans-serif;
@@ -316,7 +349,6 @@
 			letter-spacing: -0.02em;
 		}
 
-		.panel-heading p,
 		.info-panel p {
 			margin: 0;
 			color: var(--soft);
@@ -347,8 +379,8 @@
 			border-top: 6px solid var(--category-color, var(--accent));
 			border-radius: var(--radius-md);
 			background:
-				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
-				var(--surface-strong);
+				linear-gradient(180deg, var(--tile-highlight), transparent),
+				var(--panel-bg);
 			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 			overflow: visible;
 			grid-column: var(--col) / span var(--col-span, 1);
@@ -388,29 +420,29 @@
 		.tile.featured {
 			background:
 				radial-gradient(circle at top right, rgba(0, 179, 54, 0.18), transparent 45%),
-				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
-				var(--surface-strong);
+				linear-gradient(180deg, var(--tile-highlight), transparent),
+				var(--panel-bg);
 		}
 
 		.tile-agents {
 			background:
 				radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 46%),
-				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
-				var(--surface-strong);
+				linear-gradient(180deg, var(--tile-highlight), transparent),
+				var(--panel-bg);
 		}
 
 		.tile-plugins {
 			background:
 				radial-gradient(circle at top right, rgba(20, 184, 166, 0.18), transparent 46%),
-				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
-				var(--surface-strong);
+				linear-gradient(180deg, var(--tile-highlight), transparent),
+				var(--panel-bg);
 		}
 
 		.tile-foundation-anchor {
 			z-index: 10;
 			border: 2px solid #00B336;
 			background:
-				linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+				linear-gradient(180deg, var(--tile-highlight), transparent),
 				rgba(0, 179, 54, 0.1);
 			box-shadow:
 				0 0 0 1px rgba(0, 179, 54, 0.2),
@@ -514,8 +546,9 @@
 		}
 
 		.tile-pillar-vdp .tile-category {
-			background: rgba(0, 179, 54, 0.16);
-			color: #c9ffd8;
+			background: rgba(0, 179, 54, 0.24);
+			border: 1px solid rgba(0, 179, 54, 0.42);
+			color: #effff4;
 		}
 
 		.tile-pillar-vdp .tile-category::before {
@@ -524,8 +557,9 @@
 		}
 
 		.tile-pillar-vdc .tile-category {
-			background: rgba(245, 158, 11, 0.18);
-			color: #ffe8b5;
+			background: rgba(245, 158, 11, 0.24);
+			border: 1px solid rgba(245, 158, 11, 0.42);
+			color: #fff4d6;
 		}
 
 		.tile-pillar-vdc .tile-category::before {
@@ -594,20 +628,58 @@
 		.info-panel {
 			position: sticky;
 			top: 20px;
-			padding: 24px;
+			width: 400px;
+			height: fit-content;
+			max-height: 90vh;
+			padding: 30px;
+			margin: 0;
+			border: 1px solid var(--border);
 			border-radius: var(--radius-xl);
-			min-height: 260px;
+			background: var(--panel-bg);
+			color: var(--text);
+			display: flex;
+			flex-direction: column;
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(20px);
+			overflow-y: auto;
+			transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+		}
+
+		.info-panel.is-highlighted {
+			border-color: color-mix(in srgb, var(--info-color) 62%, var(--border));
+			box-shadow:
+				0 20px 48px rgba(2, 6, 23, 0.24),
+				0 0 0 1px color-mix(in srgb, var(--info-color) 38%, transparent),
+				0 0 28px color-mix(in srgb, var(--info-color) 22%, transparent);
+			transform: translateY(-1px);
+		}
+
+		.info-header {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			padding-bottom: 18px;
+			margin-bottom: 18px;
+			border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+		}
+
+		.info-body {
+			display: flex;
+			flex: 1;
+			flex-direction: column;
+			min-height: 0;
 		}
 
 		.info-kicker {
 			display: inline-flex;
 			align-items: center;
-			margin-bottom: 14px;
+			align-self: flex-start;
+			margin-bottom: 0;
 			padding: 7px 11px;
 			border-radius: 999px;
 			border: 1px solid color-mix(in srgb, var(--info-color) 78%, transparent);
-			background: color-mix(in srgb, var(--info-color) 18%, rgba(15, 23, 42, 0.92));
-			color: #f8fafc;
+			background: color-mix(in srgb, var(--info-color) 18%, var(--info-kicker-base));
+			color: var(--info-kicker-text);
 			font-size: 0.72rem;
 			font-weight: 800;
 			letter-spacing: 0.08em;
@@ -633,6 +705,7 @@
 			color: var(--muted);
 			font-size: 0.98rem;
 			line-height: 1.75;
+			flex: 0 0 auto;
 		}
 
 		.info-meta {
@@ -642,12 +715,17 @@
 			color: var(--soft);
 			font-size: 0.88rem;
 			line-height: 1.6;
+			flex: 0 0 auto;
 		}
 
 		.info-list-block {
 			margin-top: 18px;
 			padding-top: 16px;
 			border-top: 1px solid rgba(148, 163, 184, 0.12);
+			display: flex;
+			flex: 1;
+			flex-direction: column;
+			min-height: 0;
 		}
 
 		.info-list-block.is-hidden {
@@ -667,6 +745,9 @@
 			color: var(--muted);
 			font-size: 0.85rem;
 			line-height: 1.65;
+			flex: 1;
+			overflow-y: auto;
+			padding-right: 6px;
 		}
 
 		.info-list li + li {
@@ -677,7 +758,7 @@
 			padding: 28px;
 			border: 1px dashed rgba(148, 163, 184, 0.22);
 			border-radius: 24px;
-			background: rgba(15, 23, 42, 0.36);
+			background: var(--empty-state-bg);
 			color: var(--muted);
 			text-align: center;
 			grid-column: 1 / -1;
@@ -696,27 +777,58 @@
 		}
 
 		@media (max-width: 1180px) {
-			.hero,
-			.panel-layout {
-				grid-template-columns: 1fr;
+			body {
+				overflow: auto;
+			}
+
+			.shell {
+				height: auto;
+			}
+
+			.workspace-layout {
+				flex-direction: column;
+			}
+
+			.main-content {
+				overflow: visible;
+				width: min(100% - 24px, 1480px);
+				padding: 24px 0 32px;
 			}
 
 			.info-panel {
 				position: static;
+				width: 100%;
+				height: auto;
+				max-height: none;
+				border: 1px solid var(--border);
+				overflow: visible;
+			}
+
+			.info-list {
+				overflow: visible;
+			}
+		}
+
+		@media (max-width: 1024px) {
+			.tile.vbr-tile {
+				grid-column: auto / span 1;
+				grid-row: auto / span 1;
 			}
 		}
 
 		@media (max-width: 860px) {
-			.shell {
-				width: min(100% - 20px, 1440px);
-				padding-top: 20px;
+			.main-content {
+				width: min(100% - 16px, 1480px);
+				padding: 16px 0 24px;
 			}
 
-			.hero-card,
 			.panel,
-			.info-panel,
-			.search-card {
+			.info-panel {
 				padding: 20px;
+			}
+
+			.control-card {
+				padding: 18px;
 			}
 
 			.periodic-grid {
@@ -729,8 +841,13 @@
 				grid-row: auto;
 			}
 
-			.tile.featured {
+			.tile.featured:not(.vbr-tile) {
 				grid-column: span 2;
+			}
+
+			.tile.vbr-tile {
+				grid-column: auto / span 1;
+				grid-row: auto;
 			}
 
 			.status-row {
@@ -756,72 +873,86 @@
 </head>
 <body>
 	<div class="shell">
-		<header class="hero">
-			<section class="hero-card hero-copy header">
-				<h1>The Veeam Data Platform Map</h1>
-				<p>
-					A technical directory of the Veeam ecosystem. Explore the core platform, specialized plugins, and native cloud services.
-				</p>
-			</section>
+		<div class="app-container">
+			<main class="main-content">
+				<section class="control-strip">
+					<div class="control-card">
+						<div class="control-card-header">
+							<h2 class="control-strip-title">The Veeam Data Platform Map</h2>
+							<button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
+								<svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+									<circle cx="12" cy="12" r="4"></circle>
+									<path d="M12 2.5v2.5"></path>
+									<path d="M12 19v2.5"></path>
+									<path d="M4.93 4.93l1.77 1.77"></path>
+									<path d="M17.3 17.3l1.77 1.77"></path>
+									<path d="M2.5 12H5"></path>
+									<path d="M19 12h2.5"></path>
+									<path d="M4.93 19.07l1.77-1.77"></path>
+									<path d="M17.3 6.7l1.77-1.77"></path>
+								</svg>
+								<svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a9 9 0 1 0 10.7 10.7Z"></path>
+								</svg>
+								<span class="theme-toggle-label" id="themeToggleLabel">Light</span>
+							</button>
+						</div>
+						<input
+							id="searchInput"
+							class="search-input"
+							type="search"
+							aria-label="Search The Ecosystem"
+							placeholder="Search VDP Agents, VDC Services, or Security Apps..."
+							autocomplete="off"
+							spellcheck="false"
+						>
 
-			<aside class="hero-card search-card">
-				<label for="searchInput" class="search-label">Search The Ecosystem</label>
-				<input
-					id="searchInput"
-					class="search-input"
-					type="search"
-					placeholder="Search by symbol, name, category, or capability"
-					autocomplete="off"
-					spellcheck="false"
-				>
+						<div class="filter-group">
+							<span class="filter-group-label">Filter By Pillar</span>
+							<div class="legend" id="pillarLegend" aria-label="Pillar legend"></div>
+						</div>
 
-				<div class="filter-group">
-					<span class="filter-group-label">Pillar Filter</span>
-					<div class="legend" id="pillarLegend" aria-label="Pillar legend"></div>
-				</div>
+						<div class="filter-group">
+							<span class="filter-group-label">Filter By Category</span>
+							<div class="legend" id="legend" aria-label="Category legend"></div>
+						</div>
 
-				<div class="filter-group">
-					<span class="filter-group-label">Category Filter</span>
-				<div class="legend" id="legend" aria-label="Category legend"></div>
-				</div>
-
-				<div class="status-row">
-					<div class="status-copy" id="statusCopy">29 of 29 elements visible</div>
-					<button id="resetButton" class="reset-button" type="button">Reset filters</button>
-				</div>
-			</aside>
-		</header>
-
-		<section class="panel-layout">
-			<section class="panel">
-				<div class="panel-heading">
-					<div>
-						<h2>Platform Map</h2>
-						<p>VBR anchors the VDP estate on the left, while VDC services sit on the right to distinguish self-managed and managed consumption models.</p>
+						<div class="status-row">
+							<div class="status-copy" id="statusCopy">29 of 29 elements visible</div>
+							<button id="resetButton" class="reset-button" type="button">Reset filters</button>
+						</div>
 					</div>
-				</div>
-
-				<div class="periodic-grid" id="periodicGrid" aria-live="polite"></div>
-			</section>
-
-			<aside class="info-panel" id="infoPanel" style="--info-color: #00b336;">
-				<span class="info-kicker" id="infoCategory">Overview</span>
-				<h2 class="info-symbol" id="infoSymbol">VBR</h2>
-				<p class="info-name" id="infoName">Backup &amp; Replication</p>
-				<p class="info-description" id="infoDescription">
-					Core data protection across the Veeam platform, self-managed products, BaaS services, and security integrations. Hover or focus a tile to inspect its product profile.
-				</p>
-				<div class="info-meta" id="infoMeta">Use the category legend to filter the map and inspect each product's pillar, group, and management model in the sidebar.</div>
-				<section class="info-list-block" id="infoListBlock">
-					<h3 class="info-list-title" id="infoListTitle">Key Features</h3>
-					<ul class="info-list" id="infoList">
-						<li>Platform services for backup, recovery, orchestration, and provider operations</li>
-						<li>Agents and plugins for operating systems, databases, and Microsoft 365</li>
-						<li>Self-managed and BaaS cloud offerings across the Veeam ecosystem</li>
-					</ul>
 				</section>
-			</aside>
-		</section>
+
+				<div class="workspace-layout">
+					<section class="panel platform-grid">
+						<div class="periodic-grid" id="periodicGrid" aria-live="polite"></div>
+					</section>
+
+					<aside class="info-panel" id="infoPanel" style="--info-color: #00b336;">
+						<div class="info-header">
+							<span class="info-kicker" id="infoCategory">Overview</span>
+							<h2 class="info-symbol" id="infoSymbol">VBR</h2>
+							<p class="info-name" id="infoName">Backup &amp; Replication</p>
+						</div>
+						<div class="info-body">
+							<p class="info-description" id="infoDescription">
+								Core data protection across the Veeam platform, self-managed products, BaaS services, and security integrations. Hover or focus a tile to inspect its product profile.
+							</p>
+							<div class="info-meta" id="infoMeta">Use the category legend to filter the map and inspect each product's pillar, group, and management model in the sidebar.</div>
+							<section class="info-list-block" id="infoListBlock">
+								<h3 class="info-list-title" id="infoListTitle">Key Features</h3>
+								<ul class="info-list" id="infoList">
+									<li>Platform services for backup, recovery, orchestration, and provider operations</li>
+									<li>Agents and plugins for operating systems, databases, and Microsoft 365</li>
+									<li>Self-managed and BaaS cloud offerings across the Veeam ecosystem</li>
+								</ul>
+							</section>
+						</div>
+					</aside>
+				</div>
+			</main>
+		</div>
 	</div>
 
 	<script id="element-data" type="application/json">
@@ -907,7 +1038,7 @@
 				"name": "VB for Salesforce",
 				"category": "cloud-saas",
 				"pillar": "VDC",
-				"offeringModel": "VDC",
+				"offeringModel": "BaaS",
 				"supportedPlatforms": ["Salesforce records", "Metadata", "Configuration data"],
 				"description": "Protects Salesforce records, metadata, and configurations with service-led backup and restore workflows.",
 				"row": 1,
@@ -918,7 +1049,7 @@
 				"name": "Entra ID",
 				"category": "cloud-saas",
 				"pillar": "VDC",
-				"offeringModel": "VDC",
+				"offeringModel": "BaaS",
 				"supportedPlatforms": ["Directory objects", "Identity configuration", "Tenant-level recovery"],
 				"description": "Protection for Entra ID identities, configuration, and directory objects.",
 				"row": 1,
@@ -1169,6 +1300,8 @@
 		const pillarLegend = document.getElementById("pillarLegend");
 		const statusCopy = document.getElementById("statusCopy");
 		const resetButton = document.getElementById("resetButton");
+		const themeToggle = document.getElementById("themeToggle");
+		const themeToggleLabel = document.getElementById("themeToggleLabel");
 		const infoPanel = document.getElementById("infoPanel");
 		const infoCategory = document.getElementById("infoCategory");
 		const infoSymbol = document.getElementById("infoSymbol");
@@ -1181,6 +1314,16 @@
 
 		let activeCategory = null;
 		let activePillar = null;
+		let activeTheme = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+		let infoPanelHighlightTimer = null;
+
+		function syncThemeToggle() {
+			const nextTheme = activeTheme === "light" ? "dark" : "light";
+			document.documentElement.setAttribute("data-theme", activeTheme);
+			themeToggle.setAttribute("aria-pressed", activeTheme === "light" ? "true" : "false");
+			themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " theme");
+			themeToggleLabel.textContent = nextTheme === "light" ? "Light" : "Dark";
+		}
 
 		function getFilterCategories(element) {
 			return element.filterCategories || [element.category];
@@ -1214,13 +1357,14 @@
 		function updateInfo(element) {
 			const meta = categoryMeta[element.category];
 			const infoListData = getInfoListData(element);
+			const managementLabel = element.pillar === "VDC" ? "Veeam-Managed (BaaS)" : "Customer-Managed";
 			const offeringMeta = element.offeringModel ? " | Model: " + element.offeringModel : "";
 			infoPanel.style.setProperty("--info-color", meta.color);
 			infoCategory.textContent = element.pillar + " / " + meta.label;
 			infoSymbol.textContent = element.symbol;
 			infoName.textContent = element.name;
 			infoDescription.textContent = element.description;
-			infoMeta.textContent = "Pillar: " + element.pillar + " | Group: " + meta.label + offeringMeta + " | Symbol: " + element.symbol;
+			infoMeta.textContent = "Pillar: " + element.pillar + " | Management: " + managementLabel + " | Group: " + meta.label + offeringMeta + " | Symbol: " + element.symbol;
 
 			if (infoListData) {
 				infoListTitle.textContent = infoListData.title;
@@ -1230,6 +1374,21 @@
 				infoList.innerHTML = "";
 				infoListBlock.classList.add("is-hidden");
 			}
+		}
+
+		function emphasizeInfoPanel() {
+			infoPanel.classList.remove("is-highlighted");
+
+			if (infoPanelHighlightTimer !== null) {
+				window.clearTimeout(infoPanelHighlightTimer);
+			}
+
+			void infoPanel.offsetWidth;
+			infoPanel.classList.add("is-highlighted");
+			infoPanelHighlightTimer = window.setTimeout(() => {
+				infoPanel.classList.remove("is-highlighted");
+				infoPanelHighlightTimer = null;
+			}, 900);
 		}
 
 		function createPillarLegend() {
@@ -1263,9 +1422,30 @@
 
 				const nextPillar = target.dataset.pillar === "all" ? null : target.dataset.pillar;
 				activePillar = activePillar === nextPillar ? null : nextPillar;
+
+				if (activeCategory !== null) {
+					const availableCategories = getAvailableCategoriesForPillar(activePillar);
+					if (!availableCategories.has(activeCategory)) {
+						activeCategory = null;
+					}
+				}
+
 				syncPillarLegendState();
+				syncLegendState();
 				applyFilters();
 			});
+		}
+
+		function getAvailableCategoriesForPillar(pillar) {
+			if (pillar === null) {
+				return new Set(Object.keys(categoryMeta));
+			}
+
+			return new Set(
+				elements
+					.filter((element) => element.pillar === pillar)
+					.flatMap((element) => getFilterCategories(element))
+			);
 		}
 
 		function createLegend() {
@@ -1306,10 +1486,14 @@
 		}
 
 		function syncLegendState() {
+			const availableCategories = getAvailableCategoriesForPillar(activePillar);
+
 			legend.querySelectorAll("button[data-category]").forEach((button) => {
 				const category = button.dataset.category;
 				const isActive = category === "all" ? activeCategory === null : activeCategory === category;
+				const isDimmed = category !== "all" && !availableCategories.has(category);
 				button.classList.toggle("is-active", isActive);
+				button.classList.toggle("is-dimmed", isDimmed);
 				button.setAttribute("aria-pressed", isActive ? "true" : "false");
 			});
 		}
@@ -1327,7 +1511,7 @@
 			const meta = categoryMeta[element.category];
 			const filterCategories = getFilterCategories(element);
 			const tile = document.createElement("article");
-			const offeringTag = element.pillar === "VDC" && element.symbol !== "Vault" ? '<span class="baas-tag">BaaS</span>' : "";
+			const offeringTag = element.symbol === "VDC365" || element.symbol === "VDC-AZ" ? '<span class="baas-tag">BaaS</span>' : "";
 
 			const tileClasses = ["tile"];
 			tileClasses.push("tile-" + element.category);
@@ -1339,6 +1523,7 @@
 
 			if (element.symbol === "VBR") {
 				tileClasses.push("tile-foundation-anchor");
+				tileClasses.push("vbr-tile");
 			}
 
 			tile.className = tileClasses.join(" ");
@@ -1379,7 +1564,10 @@
 
 			tile.addEventListener("mouseenter", () => updateInfo(element));
 			tile.addEventListener("focus", () => updateInfo(element));
-			tile.addEventListener("click", () => updateInfo(element));
+			tile.addEventListener("click", () => {
+				updateInfo(element);
+				emphasizeInfoPanel();
+			});
 
 			periodicGrid.appendChild(tile);
 		}
@@ -1448,10 +1636,16 @@
 			searchInput.focus();
 		});
 
+		themeToggle.addEventListener("click", () => {
+			activeTheme = activeTheme === "light" ? "dark" : "light";
+			syncThemeToggle();
+		});
+
 		createPillarLegend();
 		createLegend();
 		renderGrid();
 		syncLegendState();
+		syncThemeToggle();
 		updateInfo(elements[0]);
 		applyFilters();
 	</script>
