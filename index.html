@@ -1050,7 +1050,7 @@
 						</div>
 
 						<div class="status-row">
-							<div class="status-copy" id="statusCopy">36 of 36 elements visible</div>
+							<div class="status-copy" id="statusCopy">37 of 37 elements visible</div>
 							<button id="resetButton" class="reset-button" type="button">Reset filters</button>
 						</div>
 					</div>
@@ -1380,7 +1380,7 @@
 				"col": 5
 			},
 			{
-				"symbol": "SAP",
+				"symbol": "SAPHANA",
 				"name": "SAP HANA Plugin",
 				"category": "plugins",
 				"pillar": "VDP",
@@ -1392,14 +1392,14 @@
 				"col": 3
 			},
 			{
-				"symbol": "ORA",
-				"name": "Oracle Plugin",
+				"symbol": "RMAN",
+				"name": "Oracle RMAN Plugin",
 				"category": "plugins",
 				"pillar": "VDP",
-				"supportedPlatforms": ["Oracle Database", "RAC", "ASM", "Linux and UNIX hosts"],
-				"description": "Plugin-based protection for Oracle databases with recovery workflows across clustered deployments.",
+				"supportedPlatforms": ["Oracle RMAN", "Oracle Database", "RAC", "ASM"],
+				"description": "Plugin-based Oracle protection with native RMAN-driven backup and point-in-time recovery workflows.",
 				"productPageUrl": "https://www.veeam.com/products/applications/oracle-backup-recovery.html",
-				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
+				"userGuideUrl": "https://www.veeam.com/docs/backup/explorers/veor_user_guide.html",
 				"row": 4,
 				"col": 4
 			},
@@ -1426,7 +1426,7 @@
 				"productPageUrl": "https://www.veeam.com/products/saas/backup-microsoft-office-365.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
-				"col": 6
+				"col": 7
 			},
 			{
 				"symbol": "VBfSf",
@@ -1439,17 +1439,17 @@
 				"productPageUrl": "https://www.veeam.com/products/saas/salesforce-backup.html",
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html?productId=71&version=product%3A71%2F286",
 				"row": 4,
-				"col": 5
+				"col": 6
 			},
 			{
-				"symbol": "POST",
-				"name": "PostgreSQL Plugin",
+				"symbol": "SAPORACLE",
+				"name": "SAP on Oracle Plugin",
 				"category": "plugins",
 				"pillar": "VDP",
-				"features": ["Native engine support", "v12+ optimized", "Transaction log backup"],
-				"description": "Plugin-based protection for PostgreSQL deployments with application-aware backup and restore workflows.",
-				"productPageUrl": "https://www.veeam.com/products/downloads.html",
-				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
+				"supportedPlatforms": ["SAP on Oracle", "Oracle Database", "Linux hosts", "UNIX hosts"],
+				"description": "Plugin-based protection for SAP environments running on Oracle with SAP-aware database backup and recovery workflows.",
+				"productPageUrl": "https://www.veeam.com/products/applications/oracle-backup-recovery.html",
+				"userGuideUrl": "https://www.veeam.com/docs/backup/explorers/veor_user_guide.html",
 				"row": 4,
 				"col": 1
 			},
@@ -1464,6 +1464,18 @@
 				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
 				"row": 4,
 				"col": 2
+			},
+			{
+				"symbol": "MAXDB",
+				"name": "SAP MaxDB Plugin",
+				"category": "plugins",
+				"pillar": "VDP",
+				"supportedPlatforms": ["SAP MaxDB", "Linux hosts", "UNIX hosts", "Database recovery"],
+				"description": "Plugin-based protection for SAP MaxDB workloads with application-aware backup and recovery workflows.",
+				"productPageUrl": "https://www.veeam.com/products/downloads.html",
+				"userGuideUrl": "https://helpcenter.veeam.com/all-products-and-versions.html",
+				"row": 4,
+				"col": 5
 			},
 			{
 				"symbol": "VBfAz",
@@ -1506,7 +1518,7 @@
 			},
 			{
 				"symbol": "SPLUNK",
-				"name": "Splunk",
+				"name": "Veeam App for Splunk",
 				"category": "security-apps",
 				"pillar": "VDP",
 				"features": ["Health monitoring", "Security status", "Splunk integration"],
@@ -1518,7 +1530,7 @@
 			},
 			{
 				"symbol": "XSOAR",
-				"name": "Palo Alto XSOAR",
+				"name": "Veeam App for Palo Alto Networks XSOAR",
 				"category": "security-apps",
 				"pillar": "VDP",
 				"features": ["Incident response", "XSOAR playbooks", "Security activity monitoring"],
@@ -1529,8 +1541,8 @@
 				"col": 2
 			},
 			{
-				"symbol": "XSI",
-				"name": "XSIAM",
+				"symbol": "XSIAM",
+				"name": "Veeam App for Palo Alto Networks XSIAM",
 				"category": "security-apps",
 				"pillar": "VDP",
 				"features": ["AI-driven SecOps", "XSIAM content pack", "Threat hunting"],
@@ -1542,7 +1554,7 @@
 			},
 			{
 				"symbol": "CS",
-				"name": "CrowdStrike",
+				"name": "Veeam App for CrowdStrike Falcon LogScale",
 				"category": "security-apps",
 				"pillar": "VDP",
 				"features": ["Falcon LogScale", "Log analysis", "Security activity"],
