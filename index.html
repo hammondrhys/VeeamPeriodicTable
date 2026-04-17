@@ -12,7 +12,10 @@
 			--bg: #0b1120;
 			--panel-bg: #151f32;
 			--text: #ffffff;
+			--text-muted: #94a3b8;
 			--border: #1e293b;
+			--veeam-green: #00ab84;
+			--search-bg: rgba(0, 0, 0, 0.2);
 			--card-bg: var(--panel-bg);
 			--surface: color-mix(in srgb, var(--panel-bg) 88%, transparent);
 			--surface-strong: var(--panel-bg);
@@ -40,7 +43,9 @@
 			--bg: #f8fafc;
 			--panel-bg: #ffffff;
 			--text: #0f172a;
+			--text-muted: #64748b;
 			--border: #e2e8f0;
+			--search-bg: rgba(15, 23, 42, 0.05);
 			--card-bg: var(--panel-bg);
 			--surface: color-mix(in srgb, var(--panel-bg) 88%, transparent);
 			--surface-strong: var(--panel-bg);
@@ -218,22 +223,39 @@
 			margin-bottom: 12px;
 		}
 
+		.search-input-wrap {
+			position: relative;
+			width: 100%;
+		}
+
+		.search-input-icon {
+			position: absolute;
+			left: 14px;
+			top: 50%;
+			width: 16px;
+			height: 16px;
+			color: var(--text-muted);
+			transform: translateY(-50%);
+			pointer-events: none;
+		}
+
 		.search-input {
 			width: 100%;
+			margin-bottom: 20px;
 			border: 1px solid var(--border);
 			border-radius: 18px;
-			background: var(--input-bg);
+			background: var(--search-bg);
 			color: var(--text);
-			padding: 15px 18px;
+			padding: 12px 16px 12px 40px;
 			font: inherit;
 			outline: none;
 			transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 		}
 
 		.search-input:focus {
-			border-color: rgba(0, 179, 54, 0.75);
-			box-shadow: 0 0 0 4px rgba(0, 179, 54, 0.16);
-			transform: translateY(-1px);
+			border-color: var(--veeam-green);
+			outline: none;
+			box-shadow: 0 0 0 2px rgba(0, 171, 132, 0.2);
 		}
 
 		.legend {
@@ -244,17 +266,21 @@
 		}
 
 		.filter-group {
-			margin-top: 10px;
+			margin-top: 0;
 			width: 100%;
+		}
+
+		.filter-group + .filter-group {
+			margin-top: 14px;
 		}
 
 		.filter-group-label {
 			display: block;
 			margin-bottom: 8px;
-			color: var(--soft);
-			font-size: 0.76rem;
-			font-weight: 800;
-			letter-spacing: 0.12em;
+			color: var(--text-muted);
+			font-size: 0.75rem;
+			font-weight: 700;
+			letter-spacing: 0.05em;
 			text-transform: uppercase;
 		}
 
@@ -337,6 +363,26 @@
 			overflow: hidden;
 		}
 
+		.main-content,
+		.info-panel,
+		.info-list {
+			scrollbar-width: thin;
+			scrollbar-color: var(--border) transparent;
+		}
+
+		.main-content::-webkit-scrollbar,
+		.info-panel::-webkit-scrollbar,
+		.info-list::-webkit-scrollbar {
+			width: 6px;
+		}
+
+		.main-content::-webkit-scrollbar-thumb,
+		.info-panel::-webkit-scrollbar-thumb,
+		.info-list::-webkit-scrollbar-thumb {
+			background: var(--border);
+			border-radius: 10px;
+		}
+
 		.platform-grid {
 			flex: 1;
 			min-width: 0;
@@ -415,6 +461,13 @@
 
 		.tile.is-hidden {
 			display: none;
+		}
+
+		.tile.is-selected {
+			border: 2px solid var(--veeam-green) !important;
+			box-shadow: 0 0 15px rgba(0, 171, 132, 0.4);
+			z-index: 10;
+			transform: scale(1.02);
 		}
 
 		.tile.featured {
@@ -627,7 +680,7 @@
 
 		.info-panel {
 			position: sticky;
-			top: 20px;
+			top: 24px;
 			width: 400px;
 			height: fit-content;
 			max-height: 90vh;
@@ -754,6 +807,10 @@
 			margin-top: 6px;
 		}
 
+		.info-list li::marker {
+			color: var(--veeam-green);
+		}
+
 		.empty-state {
 			padding: 28px;
 			border: 1px dashed rgba(148, 163, 184, 0.22);
@@ -878,7 +935,7 @@
 				<section class="control-strip">
 					<div class="control-card">
 						<div class="control-card-header">
-							<h2 class="control-strip-title">The Veeam Data Platform Map</h2>
+							<h1 class="control-strip-title">The Veeam Data Platform Map</h1>
 							<button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
 								<svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
 									<circle cx="12" cy="12" r="4"></circle>
@@ -897,23 +954,29 @@
 								<span class="theme-toggle-label" id="themeToggleLabel">Light</span>
 							</button>
 						</div>
-						<input
-							id="searchInput"
-							class="search-input"
-							type="search"
-							aria-label="Search The Ecosystem"
-							placeholder="Search VDP Agents, VDC Services, or Security Apps..."
-							autocomplete="off"
-							spellcheck="false"
-						>
+						<div class="search-input-wrap">
+							<svg class="search-input-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<circle cx="11" cy="11" r="7"></circle>
+								<path d="m20 20-3.5-3.5"></path>
+							</svg>
+							<input
+								id="searchInput"
+								class="search-input"
+								type="search"
+								aria-label="Search The Ecosystem"
+								placeholder="Search VDP Agents, VDC Services, or Security Apps..."
+								autocomplete="off"
+								spellcheck="false"
+							>
+						</div>
 
 						<div class="filter-group">
-							<span class="filter-group-label">Filter By Pillar</span>
+							<span class="filter-group-label">Pillar Filter</span>
 							<div class="legend" id="pillarLegend" aria-label="Pillar legend"></div>
 						</div>
 
 						<div class="filter-group">
-							<span class="filter-group-label">Filter By Category</span>
+							<span class="filter-group-label">Category Filter</span>
 							<div class="legend" id="legend" aria-label="Category legend"></div>
 						</div>
 
@@ -1316,6 +1379,8 @@
 		let activePillar = null;
 		let activeTheme = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
 		let infoPanelHighlightTimer = null;
+		let selectedSymbol = elements[0]?.symbol || null;
+		let selectedTile = null;
 
 		function syncThemeToggle() {
 			const nextTheme = activeTheme === "light" ? "dark" : "light";
@@ -1389,6 +1454,21 @@
 				infoPanel.classList.remove("is-highlighted");
 				infoPanelHighlightTimer = null;
 			}, 900);
+		}
+
+		function setSelectedTile(tile, element, shouldEmphasize = true) {
+			if (selectedTile && selectedTile !== tile) {
+				selectedTile.classList.remove("is-selected");
+			}
+
+			selectedTile = tile;
+			selectedSymbol = element.symbol;
+			tile.classList.add("is-selected");
+			updateInfo(element);
+
+			if (shouldEmphasize) {
+				emphasizeInfoPanel();
+			}
 		}
 
 		function createPillarLegend() {
@@ -1526,6 +1606,10 @@
 				tileClasses.push("vbr-tile");
 			}
 
+			if (element.symbol === selectedSymbol) {
+				tileClasses.push("is-selected");
+			}
+
 			tile.className = tileClasses.join(" ");
 			tile.tabIndex = 0;
 			tile.dataset.symbol = element.symbol;
@@ -1565,9 +1649,12 @@
 			tile.addEventListener("mouseenter", () => updateInfo(element));
 			tile.addEventListener("focus", () => updateInfo(element));
 			tile.addEventListener("click", () => {
-				updateInfo(element);
-				emphasizeInfoPanel();
+				setSelectedTile(tile, element);
 			});
+
+			if (element.symbol === selectedSymbol) {
+				selectedTile = tile;
+			}
 
 			periodicGrid.appendChild(tile);
 		}
@@ -1632,7 +1719,12 @@
 			syncLegendState();
 			syncPillarLegendState();
 			applyFilters();
-			updateInfo(elements[0]);
+			const defaultTile = periodicGrid.querySelector('.tile[data-symbol="' + elements[0].symbol + '"]');
+			if (defaultTile) {
+				setSelectedTile(defaultTile, elements[0], false);
+			} else {
+				updateInfo(elements[0]);
+			}
 			searchInput.focus();
 		});
 
